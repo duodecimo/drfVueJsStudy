@@ -1,0 +1,16 @@
+GET http://127.0.0.1:8000/api/persons/
+Content-Type: application/json
+
+###
+POST http://127.0.0.1:8000/api/persons/
+Content-Type: application/json
+
+{
+    "firstName": "Miforonalda",
+    "lastName": "Esteves",
+    "email": "mifo@gmail.com"
+}
+
+###
+DELETE http://127.0.0.1:8000/api/persons/4/
+Content-Type: application/json

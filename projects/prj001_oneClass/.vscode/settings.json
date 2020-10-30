@@ -1,0 +1,8 @@
+{
+    "python.languageServer": "Pylance",        
+    "python.venvFolders": [
+        "/extra2/environments"
+    ],
+    "python.venvPath": "/extra2/environments/drf",
+    "python.pythonPath": "/extra2/environments/drf/bin/python"
+}

@@ -1,0 +1,24 @@
+POST http://127.0.0.1:8000/rest-auth/login/
+Content-type: application/json
+
+{
+    "username": "admin",
+    "password": "123456"
+}
+
+# c6e588318087b64ce03f9dec97aea6c95b2dd127
+###
+
+GET http://127.0.0.1:8000/api/persons/
+Content-type: application/json
+Authorization: Basic YWRtaW46MTIzNDU2
+Cookie: csrftoken c6e588318087b64ce03f9dec97aea6c95b2dd127
+
+###
+
+### Obs: Não conseguí fazer o logout
+### "detail": "CSRF Failed: CSRF token missing or incorrect."
+POST http://127.0.0.1:8000/rest-auth/logout/
+Authorization: Basic YWRtaW46MTIzNDU2
+Cookie: csrftoken c6e588318087b64ce03f9dec97aea6c95b2dd127
+

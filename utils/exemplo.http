@@ -1,0 +1,19 @@
+GET http://127.0.0.1:8000/api/company/
+Authorization: token beca9e333e9b8e979e807d1c99376fda061dbdec
+
+###
+
+GET http://127.0.0.1:8000/api/job/
+Authorization: token beca9e333e9b8e979e807d1c99376fda061dbdec
+
+###
+
+PATCH http://127.0.0.1:8000/api/job/1/
+Content-type: application/json
+Authorization: token beca9e333e9b8e979e807d1c99376fda061dbdec
+
+{
+    "name": "Enxugador de gêlo"
+}
+
+

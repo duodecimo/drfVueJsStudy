@@ -12,5 +12,14 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://127.0.0.1:8000/api/persons/4/
+DELETE http://127.0.0.1:8000/api/persons/5/
 Content-Type: application/json
+
+###
+# PATCH http://127.0.0.1:8000/api/job/1/
+# Content-type: application/json
+# Authorization: token beca9e333e9b8e979e807d1c99376fda061dbdec
+
+# {
+#     "name": "Enxugador de gêlo"
+# }

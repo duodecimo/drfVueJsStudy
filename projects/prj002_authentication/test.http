@@ -17,10 +17,40 @@ Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
 
 POST http://127.0.0.1:8000/api/persons/
 Content-type: application/json
-Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
+Authorization: Token a2357c28f3d7b7166765bf1cec1ac4f00d3e6617
 
 {
     "firstName": "Astofoboldo",
     "lastName": "Neves",
     "email": "astofo@gmail.com"
 }
+
+###
+
+DELETE http://127.0.0.1:8000/api/persons/1/
+Content-type: application/json
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
+
+###
+
+GET http://127.0.0.1:8000/rest-auth/user/
+Content-type: application/json
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
+
+###
+
+POST http://127.0.0.1:8000/rest-auth/logout/
+Content-type: application/json
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
+
+###
+
+POST http://127.0.0.1:8000/rest-auth/login/
+Content-type: application/json
+
+{
+    "username": "testuser",
+    "password": "testpassword"
+}
+
+### a2357c28f3d7b7166765bf1cec1ac4f00d3e6617

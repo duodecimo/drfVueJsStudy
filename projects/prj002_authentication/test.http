@@ -1,24 +1,26 @@
-POST http://127.0.0.1:8000/rest-auth/login/
+POST http://127.0.0.1:8000/registration/
 Content-type: application/json
 
 {
-    "username": "admin",
-    "password": "123456"
+    "username": "testuser",
+    "password1": "testpassword",
+    "password2": "testpassword"
 }
 
-# c6e588318087b64ce03f9dec97aea6c95b2dd127
 ###
 
 GET http://127.0.0.1:8000/api/persons/
 Content-type: application/json
-Authorization: Basic YWRtaW46MTIzNDU2
-Cookie: csrftoken c6e588318087b64ce03f9dec97aea6c95b2dd127
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
 
 ###
 
-### Obs: Não conseguí fazer o logout
-### "detail": "CSRF Failed: CSRF token missing or incorrect."
-POST http://127.0.0.1:8000/rest-auth/logout/
-Authorization: Basic YWRtaW46MTIzNDU2
-Cookie: csrftoken c6e588318087b64ce03f9dec97aea6c95b2dd127
+POST http://127.0.0.1:8000/api/persons/
+Content-type: application/json
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
 
+{
+    "firstName": "Astofoboldo",
+    "lastName": "Neves",
+    "email": "astofo@gmail.com"
+}

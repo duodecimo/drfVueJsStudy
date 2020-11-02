@@ -1,3 +1,11 @@
+# Sugstão:
+# Reinicie o servidor, utilize o endpoint
+# abaixo, e anote a 'Key' devolvida no 
+# resultado, se tudo correr bem: É o token.
+# Nos demais endpoits, ou curl, utilize o
+# token recebido.
+
+
 POST http://127.0.0.1:8000/registration/
 Content-type: application/json
 
@@ -54,3 +62,8 @@ Content-type: application/json
 }
 
 ### a2357c28f3d7b7166765bf1cec1ac4f00d3e6617
+
+####
+curl -X GET -H "Authorization: Token 440b6465e838677a640a3f8f2be304a0cffcf412" -d ''  http://127.0.0.1:8000/api/persons/
+
+###

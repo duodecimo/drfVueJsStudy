@@ -32,10 +32,9 @@ Authorization: Token a55dd1c646dd194e33858836a190391a9ea55474
 
 {
     "title": "Reunião",
-    "description": "Bomba vai ser jogada!",
-    "begins_at": "2020-11-04T10:00",
-    "ends_at": "2020-11-04T11:00",
-    "user": 1
+    "description": "Com todo staff!",
+    "begins_at": "2020-11-06T10:00",
+    "ends_at": "2020-11-06T11:00"
 }
 
 ###

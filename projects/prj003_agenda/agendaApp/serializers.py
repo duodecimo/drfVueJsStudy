@@ -3,6 +3,7 @@ from .models import Appointment, CustomUser
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Appointment

@@ -10,6 +10,9 @@ class AppointmentViewSet(ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class CustomUserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()

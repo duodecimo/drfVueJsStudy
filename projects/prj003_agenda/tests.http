@@ -10,92 +10,39 @@ POST http://127.0.0.1:8000/registration/
 Content-type: application/json
 
 {
-    "username": "testuser",
-    "password1": "testpassword",
-    "password2": "testpassword"
-}
-
-### 2bb544705a8dcdac774c3009f05bb1149539ec42
-
-
-GET http://127.0.0.1:8000/api/users/
-Content-type: application/json
-Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
-
-###
-
-POST http://127.0.0.1:8000/api/users/
-Content-type: application/json
-Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
-
-{
-    "first_name": "Astofoboldo",
-    "last_name": "Neves",
     "username": "astofoboldo",
-    "email": "astofo@gmail.com",
-    "password": "123456"
+    "password1": "segredo123456",
+    "password2": "segredo123456"
 }
 
-###
+### a55dd1c646dd194e33858836a190391a9ea55474
 
-GET http://127.0.0.1:8000/api/events/
-Content-type: application/json
-Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
 
 ###
 
-POST http://127.0.0.1:8000/api/events/
+GET http://127.0.0.1:8000/api/appointments/
 Content-type: application/json
-Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
+Authorization: Token a55dd1c646dd194e33858836a190391a9ea55474
+
+###
+
+POST http://127.0.0.1:8000/api/appointments/
+Content-type: application/json
+Authorization: Token a55dd1c646dd194e33858836a190391a9ea55474
 
 {
     "title": "Reunião",
-    "description": "",
+    "description": "Bomba vai ser jogada!",
+    "begins_at": "2020-11-04T10:00",
+    "ends_at": "2020-11-04T11:00",
     "user": 1
 }
 
 ###
 
-
-POST http://127.0.0.1:8000/api/persons/
+DELETE http://127.0.0.1:8000/api/appointments/1/
 Content-type: application/json
-Authorization: Token a2357c28f3d7b7166765bf1cec1ac4f00d3e6617
-
-{
-    "firstName": "Astofoboldo",
-    "lastName": "Neves",
-    "email": "astofo@gmail.com"
-}
-
-###
-
-DELETE http://127.0.0.1:8000/api/persons/1/
-Content-type: application/json
-Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
-
-###
-
-GET http://127.0.0.1:8000/rest-auth/user/
-Content-type: application/json
-Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
-
-###
-
-POST http://127.0.0.1:8000/rest-auth/logout/
-Content-type: application/json
-Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
-
-###
-
-POST http://127.0.0.1:8000/rest-auth/login/
-Content-type: application/json
-
-{
-    "username": "testuser",
-    "password": "testpassword"
-}
-
-### a2357c28f3d7b7166765bf1cec1ac4f00d3e6617
+Authorization: Token a55dd1c646dd194e33858836a190391a9ea55474
 
 ####
 curl -X GET -H "Authorization: Token 440b6465e838677a640a3f8f2be304a0cffcf412" -d ''  http://127.0.0.1:8000/api/persons/

@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 
 from rest_framework.routers import DefaultRouter
-from agendaApp.views import CustomUserViewSet, EventViewSet
+from agendaApp.views import AppointmentViewSet, CustomUserViewSet
 
 
 router = DefaultRouter()
+
+router.register('appointments', AppointmentViewSet)
+
 router.register('users', CustomUserViewSet)
-router.register('events', EventViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

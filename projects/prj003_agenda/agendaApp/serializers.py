@@ -1,15 +1,15 @@
-from django.db.models import fields
 from rest_framework import serializers
-from .models import Event, CustomUser
+from .models import Appointment, CustomUser
+
+
+class AppointmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Appointment
+        exclude = ["updated_at"]
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
-
-
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
         fields = '__all__'

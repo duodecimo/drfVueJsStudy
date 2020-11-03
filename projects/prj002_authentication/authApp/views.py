@@ -1,8 +1,11 @@
 from .models import Person
 from .serializers import PersonSerializer
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 
 # Create your views here.
 
@@ -10,5 +13,4 @@ from rest_framework.permissions import IsAuthenticated
 class PersonViewSet(ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-    authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]

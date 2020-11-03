@@ -1,0 +1,103 @@
+# Sugstão:
+# Reinicie o servidor, utilize o endpoint
+# abaixo, e anote a 'Key' devolvida no 
+# resultado, se tudo correr bem: É o token.
+# Nos demais endpoits, ou curl, utilize o
+# token recebido.
+
+
+POST http://127.0.0.1:8000/registration/
+Content-type: application/json
+
+{
+    "username": "testuser",
+    "password1": "testpassword",
+    "password2": "testpassword"
+}
+
+### 2bb544705a8dcdac774c3009f05bb1149539ec42
+
+
+GET http://127.0.0.1:8000/api/users/
+Content-type: application/json
+Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
+
+###
+
+POST http://127.0.0.1:8000/api/users/
+Content-type: application/json
+Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
+
+{
+    "first_name": "Astofoboldo",
+    "last_name": "Neves",
+    "username": "astofoboldo",
+    "email": "astofo@gmail.com",
+    "password": "123456"
+}
+
+###
+
+GET http://127.0.0.1:8000/api/events/
+Content-type: application/json
+Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
+
+###
+
+POST http://127.0.0.1:8000/api/events/
+Content-type: application/json
+Authorization: Token 2bb544705a8dcdac774c3009f05bb1149539ec42
+
+{
+    "title": "Reunião",
+    "description": "",
+    "user": 1
+}
+
+###
+
+
+POST http://127.0.0.1:8000/api/persons/
+Content-type: application/json
+Authorization: Token a2357c28f3d7b7166765bf1cec1ac4f00d3e6617
+
+{
+    "firstName": "Astofoboldo",
+    "lastName": "Neves",
+    "email": "astofo@gmail.com"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/api/persons/1/
+Content-type: application/json
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
+
+###
+
+GET http://127.0.0.1:8000/rest-auth/user/
+Content-type: application/json
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
+
+###
+
+POST http://127.0.0.1:8000/rest-auth/logout/
+Content-type: application/json
+Authorization: Token 6b0e82942a6afd48b9baa2b8f608a430a7c7353d
+
+###
+
+POST http://127.0.0.1:8000/rest-auth/login/
+Content-type: application/json
+
+{
+    "username": "testuser",
+    "password": "testpassword"
+}
+
+### a2357c28f3d7b7166765bf1cec1ac4f00d3e6617
+
+####
+curl -X GET -H "Authorization: Token 440b6465e838677a640a3f8f2be304a0cffcf412" -d ''  http://127.0.0.1:8000/api/persons/
+
+###

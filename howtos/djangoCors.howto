@@ -1,0 +1,21 @@
+pip install django-cors-headers
+
+settings.py:
+
+INSTALLED_APPS = (
+    ...
+    'corsheaders',
+    ...
+)
+
+MIDDLEWARE_CLASSES = (
+    ...
+    'corsheaders.middleware.CorsMiddleware',  
+    'django.middleware.common.CommonMiddleware',  
+    ...
+)
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',
+]
+

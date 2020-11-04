@@ -32,6 +32,10 @@
       @click:append="pwShow = !pwShow"
     ></v-text-field>
 
+    <v-btn :disabled="!valid" color="success" class="mr-4" @click="login">
+      Login
+    </v-btn>
+
     <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
       Validate
     </v-btn>
@@ -86,6 +90,24 @@ export default {
     },
     resetValidation() {
       this.$refs.form.resetValidation();
+    },
+    login() {
+      console.log("login");
+      this.$http
+        .post("http://localhost:8000/rest-auth/login/", {
+          username: this.name,
+          email: this.email,
+          password: this.password
+        })
+        .then(
+          data => {
+            console.log("data: ", data);
+            // a55dd1c646dd194e33858836a190391a9ea55474
+          },
+          err => {
+            console.log("Em UserLogin - login() - Err status: ", err.status);
+          }
+        );
     }
   }
 };

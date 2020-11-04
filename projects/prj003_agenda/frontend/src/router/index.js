@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Welcome from "../views/Welcome.vue";
 import UserRegistration from "../views/auth/UserRegistration.vue";
 import UserLogin from "../views/auth/UserLogin.vue";
-import store from "../store/index.js";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -38,18 +38,30 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes
 });
 
 router.beforeEach(function(to, from, next) {
   console.log("[router] Global router beforeEach.");
+  console.log("Testando store hi: ", store.state.hi, " - ", store.getters.hi);
   console.log("   to: ", to);
   console.log("   from: ", from);
-  if (to.meta.requiresAuth && !store.getters.autheticated) {
+  console.log("Verificando authentication: ", store.getters.authentication);
+  console.log(
+    "verificando to: ",
+    to.name,
+    ", requiresAuth: ",
+    to.meta.requiresAuth
+  );
+  if (to.meta.requiresAuth && !store.getters.authentication) {
+    console.log("Navigation guard > Forçando login");
     next("/login");
-  } else if (to.meta.requiresUnAuth && store.getters.autheticated) {
+  } else if (to.meta.requiresUnAuth && store.getters.authentication) {
+    console.log("Navigation guard > Impedindo login, usuário já está logado.");
     next("/");
   } else {
+    console.log("Navigation guard > navegando para ", to);
     next();
   }
   next();

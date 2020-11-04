@@ -1,17 +1,8 @@
-const state = {
-  authentication: null
-};
+const state = {};
 
-const mutations = {
-  SETAUTHENTICATION: (state, value) =>
-    value ? (state.authentication = value) : (state.authentication = null)
-};
+const mutations = {};
 
-const getters = {
-  authentication(state) {
-    return state.authentication;
-  }
-};
+const getters = {};
 
 const actions = {};
 

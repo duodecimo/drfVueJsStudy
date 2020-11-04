@@ -4,8 +4,7 @@
 
     <v-toolbar-title>Agenda</v-toolbar-title>
 
-    <v-btn class="mx-5" color="red darken-4" dark elevation="12">Test</v-btn>
-
+    <router-link class="ml-sm-8" to="/">Welcome</router-link>
     <v-spacer></v-spacer>
 
     <v-btn icon>

@@ -44,12 +44,19 @@
       Reset Form
     </v-btn>
 
-    <v-btn color="warning" @click="resetValidation">
+    <v-btn color="warning" class="mr-4" @click="resetValidation">
       Reset Validation
+    </v-btn>
+
+    <v-btn :disabled="!valid" color="error" class="mr-4" @click="logout">
+      Logout
     </v-btn>
   </v-form>
 </template>
+
 <script>
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     valid: true,
@@ -82,6 +89,7 @@ export default {
   }),
 
   methods: {
+    ...mapActions(["setAuthentication"]),
     validate() {
       this.$refs.form.validate();
     },
@@ -100,15 +108,51 @@ export default {
           password: this.password
         })
         .then(
-          data => {
-            console.log("data: ", data);
+          response => {
+            console.log("response: ", response);
+            console.log("data key: ", response.data.key);
+            console.log("data key: ", `Token response.data.key`);
+            this.setAuthentication("Token " + response.data.key).then(
+              console.log(
+                "UserLogin - login() - authentication: ",
+                this.authentication
+              ),
+              this.$router.push({ path: "/" })
+            );
             // a55dd1c646dd194e33858836a190391a9ea55474
           },
           err => {
             console.log("Em UserLogin - login() - Err status: ", err.status);
           }
         );
+    },
+    logout() {
+      console.log("logout");
+      this.$http
+        .post(
+          "http://localhost:8000/rest-auth/logout/",
+          {},
+          {
+            headers: {
+              Authorization: this.getAuthentication
+            }
+          }
+        )
+        .then(
+          response => {
+            console.log("response: ", response.data.detail);
+            this.setAuthentication(null);
+            alert(response.data.detail);
+          },
+          err => {
+            console.log("Em UserLogin - logout() - Err status: ", err.status);
+          }
+        );
+      // Authorization: `Token ${localStorage.getItem("token")}`
     }
+  },
+  computed: {
+    ...mapGetters(["authentication"])
   }
 };
 </script>

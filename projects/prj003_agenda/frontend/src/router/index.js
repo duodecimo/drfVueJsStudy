@@ -17,6 +17,7 @@ const routes = [
   {
     path: "/about",
     name: "about",
+    meta: { requiresAuth: true },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -45,6 +46,7 @@ const router = new VueRouter({
 router.beforeEach(function(to, from, next) {
   console.log("[router] Global router beforeEach.");
   console.log("Testando store hi: ", store.state.hi, " - ", store.getters.hi);
+  console.log("Testando store alo: ", store.getters.alo);
   console.log("   to: ", to);
   console.log("   from: ", from);
   console.log("Verificando authentication: ", store.getters.authentication);

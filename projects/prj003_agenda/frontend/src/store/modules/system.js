@@ -1,8 +1,12 @@
-const state = {};
+const state = { alo: "Alo!" };
 
 const mutations = {};
 
-const getters = {};
+const getters = {
+  alo(state) {
+    return state.alo;
+  }
+};
 
 const actions = {};
 

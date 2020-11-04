@@ -1,0 +1,15 @@
+Dentro da pasta do projeto:
+
+npm install @mdi/font
+
+======================================================
+disparar:
+    vue ui
+
+    criar o projeto frontend
+    adicionar dependência vuetify
+======================================================
+
+configurar: main.js, src/plugins/vuetify.js
+
+

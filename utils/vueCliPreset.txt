@@ -1,0 +1,21 @@
+# Add the preset to ~/vuerc in case you wish to use it
+# or simply select the plugins mentioned below
+# when creating your project
+
+"duoDrfStudy": {
+      "useConfigFiles": false,
+      "plugins": {
+        "@vue/cli-plugin-babel": {},
+        "@vue/cli-plugin-router": {
+          "historyMode": true
+        },
+        "@vue/cli-plugin-vuex": {},
+        "@vue/cli-plugin-eslint": {
+          "config": "prettier",
+          "lintOn": [
+            "save"
+          ]
+        }
+      },
+      "vueVersion": "2"
+    }

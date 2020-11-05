@@ -8,6 +8,7 @@
       placeholder="Digite seu nome de login"
       outlined
       required
+      clearable
     ></v-text-field>
 
     <v-text-field
@@ -16,6 +17,7 @@
       label="E-mail"
       placeholder="Digite seu e-mail"
       outlined
+      clearable
     ></v-text-field>
 
     <v-text-field
@@ -29,6 +31,7 @@
       counter
       outlined
       required
+      clearable
       @click:append="pwShow = !pwShow"
     ></v-text-field>
 
@@ -134,7 +137,7 @@ export default {
           {},
           {
             headers: {
-              Authorization: this.getAuthentication
+              Authorization: this.getAuthentication()
             }
           }
         )

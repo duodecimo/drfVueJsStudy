@@ -6,25 +6,14 @@ import system from "./modules/system";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: { hi: "Hi!", authentication: null },
-  mutations: {
-    SETAUTHENTICATION: (state, value) =>
-      value ? (state.authentication = value) : (state.authentication = null)
-  },
+  state: { hi: "Hi!" },
+  mutations: {},
   getters: {
     hi(state) {
       return state.hi;
-    },
-    authentication(state) {
-      return state.authentication;
     }
   },
-  actions: {
-    setAuthentication(context, payload) {
-      console.log("STORE - system.js - setAuthentication - payload: ", payload);
-      context.commit("SETAUTHENTICATION", payload);
-    }
-  },
+  actions: {},
   modules: {
     system
   }

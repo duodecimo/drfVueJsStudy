@@ -15,8 +15,9 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: "/about",
+    path: "/about:message",
     name: "about",
+    props: true,
     meta: { requiresAuth: true },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

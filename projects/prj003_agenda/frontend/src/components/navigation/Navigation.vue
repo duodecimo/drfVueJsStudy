@@ -13,7 +13,11 @@
       >
 
       <router-link class="ml-md-8" to="/">Welcome</router-link>
-      <router-link class="ml-md-8" to="/about">About</router-link>
+      <router-link
+        class="ml-md-8"
+        :to="{ name: 'about', params: { message: 'testando mensagens' } }"
+        >About</router-link
+      >
       <router-link class="ml-md-8" to="/login">Login</router-link>
       <v-spacer></v-spacer>
 

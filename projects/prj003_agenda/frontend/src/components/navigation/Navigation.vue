@@ -15,9 +15,10 @@
       <router-link class="ml-md-8" to="/">Welcome</router-link>
       <router-link
         class="ml-md-8"
-        :to="{ name: 'about', params: { message: 'testando mensagens' } }"
+        :to="{ name: 'aboutmsg', params: { message: 'testando mensagens' } }"
         >About</router-link
       >
+      <router-link class="ml-md-8" to="/appointments">Appointments</router-link>
       <router-link class="ml-md-8" to="/login">Login</router-link>
       <v-spacer></v-spacer>
 

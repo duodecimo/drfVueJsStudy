@@ -3,7 +3,9 @@
     <v-app id="inspire" :style="fontSize">
       <v-main>
         <app-navigation />
-        <router-view />
+        <keep-alive>
+          <router-view />
+        </keep-alive>
         <div class="mt-8">
           <v-footer class="justify-center" color="indigo" app dark height="50">
             <div>

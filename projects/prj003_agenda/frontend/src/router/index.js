@@ -16,8 +16,18 @@ const routes = [
   },
   {
     path: "/about:message",
-    name: "about",
+    name: "aboutmsg",
     props: true,
+    meta: { requiresAuth: true },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/about",
+    name: "about",
     meta: { requiresAuth: true },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -36,27 +46,39 @@ const routes = [
     name: "login",
     component: UserLogin,
     meta: { requiresUnAuth: true }
+  },
+  {
+    path: "/appointments",
+    name: "appointments",
+    meta: { requiresAuth: true },
+    component: () => import("../views/Appointments.vue")
   }
 ];
 
+const scrollBehavior = (to, from, savedPosition) => {
+  let position = {};
+  if (savedPosition) {
+    return savedPosition;
+  } else {
+    position.x = 0;
+    position.y = 0;
+  }
+  return position;
+};
+
 const router = new VueRouter({
   mode: "history",
+  scrollBehavior,
   routes
 });
 
 router.beforeEach(function(to, from, next) {
   console.log("[router] Global router beforeEach.");
-  console.log("Testando store hi: ", store.state.hi, " - ", store.getters.hi);
-  console.log("Testando store alo: ", store.getters.alo);
-  console.log("   to: ", to);
-  console.log("   from: ", from);
+  // console.log("Testando store alo: ", store.getters.alo);
+  console.log("   to   name: ", to.name, " path: ", to.path);
+  console.log("   from name: ", from.name, " path: ", from.path);
   console.log("Verificando authentication: ", store.getters.authentication);
-  console.log(
-    "verificando to: ",
-    to.name,
-    ", requiresAuth: ",
-    to.meta.requiresAuth
-  );
+  console.log("verificando to meta requiresAuth: ", to.meta.requiresAuth);
   if (to.meta.requiresAuth && !store.getters.authentication) {
     console.log("Navigation guard > Forçando login");
     next("/login");
@@ -64,7 +86,12 @@ router.beforeEach(function(to, from, next) {
     console.log("Navigation guard > Impedindo login, usuário já está logado.");
     next("/");
   } else {
-    console.log("Navigation guard > navegando para ", to);
+    console.log(
+      "Navigation guard > navegando para nome: ",
+      to.name,
+      " path: ",
+      to.path
+    );
     next();
   }
   next();

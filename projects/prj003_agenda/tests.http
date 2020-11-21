@@ -17,12 +17,20 @@ Content-type: application/json
 
 ### a55dd1c646dd194e33858836a190391a9ea55474
 
+###
+POST http://127.0.0.1:8000/rest-auth/login/
+Content-type: application/json
+
+{
+    "username": "astofoboldo",
+    "password": "segredo123456"
+}
 
 ###
 
 GET http://127.0.0.1:8000/api/appointments/
 Content-type: application/json
-Authorization: Token a55dd1c646dd194e33858836a190391a9ea55474
+Authorization: Token 75f0a08b886caa506a6ff8d3a85e1b6a346bb673
 
 ###
 
@@ -47,3 +55,4 @@ Authorization: Token a55dd1c646dd194e33858836a190391a9ea55474
 curl -X GET -H "Authorization: Token 440b6465e838677a640a3f8f2be304a0cffcf412" -d ''  http://127.0.0.1:8000/api/persons/
 
 ###
+

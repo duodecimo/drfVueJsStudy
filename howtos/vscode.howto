@@ -1,0 +1,8 @@
+
+search (regex example):
+this\.\$store\.(?!dispatch|commit|state)
+replace with:
+this.$store.getters.
+files to include:
+frontend/src
+

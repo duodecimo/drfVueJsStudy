@@ -1,0 +1,4 @@
+https://coderwall.com/p/mvsoyg/django-dumpdata-and-loaddata
+i.e:
+python manage.py dumpdata --exclude allauth --indent 2 > backups/db.json
+

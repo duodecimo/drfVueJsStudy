@@ -1,0 +1,28 @@
+(gymbrain) duo@asimov:/extra2/equipeProjetos/git/gymbrain_piloto$ python manage.py shell
+Python 3.8.5 (default, Jul 28 2020, 12:59:40) 
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from apps.agenda.api.serializers import AgendamentoSerializer
+>>> serializer = AgendamentoSerializer()
+>>> print(repr(serializer))
+AgendamentoSerializer():
+    id = IntegerField(label='ID', read_only=True)
+    created_at = DateTimeField(read_only=True)
+    updated_at = DateTimeField(read_only=True)
+    active = BooleanField(required=False)
+    video_identifier = CharField(allow_blank=True, allow_null=True, max_length=100, required=False)
+    data = DateField(required=True)
+    horario = TimeField(required=True)
+    abertura_medico = DateTimeField(allow_null=True, required=False)
+    fechamento_medico = DateTimeField(allow_null=True, required=False)
+    abertura_paciente = DateTimeField(allow_null=True, required=False)
+    fechamento_paciente = DateTimeField(allow_null=True, required=False)
+    mensagem = CharField(allow_blank=True, allow_null=True, required=False, style={'base_template': 'textarea.html'})
+    status = CharField(allow_null=True, max_length=240, required=False)
+    medico = PrimaryKeyRelatedField(allow_null=True, queryset=User.objects.all(), required=True)
+    paciente = PrimaryKeyRelatedField(allow_null=True, queryset=User.objects.all(), required=False)
+    class Meta:
+        validators = [<UniqueTogetherValidator(queryset=Agendamento.objects.all(), fields=('medico', 'data', 'horario'))>]
+
+

@@ -38,7 +38,7 @@ export default {
   methods: {
     primeiroTeste() {
       this.$router.push({
-        name: "about",
+        name: "aboutmsg",
         params: { message: "primeiro teste" }
       });
     },

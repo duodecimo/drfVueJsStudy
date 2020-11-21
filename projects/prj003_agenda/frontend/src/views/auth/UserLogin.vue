@@ -1,10 +1,10 @@
 <template>
-  <v-form ref="form" class="ma-sm-8" v-model="valid" lazy-validation>
+  <v-form ref="form" @submit.prevent class="ma-sm-8" v-model="valid">
     <v-text-field
       v-model="name"
       :counter="10"
       :rules="nameRules"
-      label="Name"
+      label="Seu nome"
       placeholder="Digite seu nome de login"
       outlined
       required
@@ -12,22 +12,22 @@
     ></v-text-field>
 
     <v-text-field
-      v-model="email"
+      v-model="userEmail"
       :rules="emailRules"
-      label="E-mail"
+      label="Seu e-mail"
       placeholder="Digite seu e-mail"
       outlined
       clearable
     ></v-text-field>
 
     <v-text-field
-      v-model="password"
+      v-model="userPassword"
       :append-icon="pwShow ? 'mdi-eye' : 'mdi-eye-off'"
       :rules="passwordRules"
       :type="pwShow ? 'text' : 'password'"
       name="input-10-1"
-      label="Password"
-      placeholder="Digite sua password"
+      label="Sua senha"
+      placeholder="Digite sua senha"
       counter
       outlined
       required
@@ -63,12 +63,12 @@ import { mapActions } from "vuex";
 export default {
   data: () => ({
     valid: true,
-    name: "",
+    name: null,
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length >= 4) || "O nome deve ter pelo menos 4 caracteres"
     ],
-    email: "",
+    userEmail: null,
     // emailRules: [
     //   v => !!v || "E-mail is required",
     //   v => /.+@.+\..+/.test(v) || "E-mail must be valid"
@@ -76,7 +76,7 @@ export default {
     emailRules: [
       v => /^$/.test(v) || /.+@.+\..+/.test(v) || "E-mail must be valid"
     ],
-    password: "",
+    userPassword: null,
     // passwordRules: [
     //   v => !!v || "Password is required",
     //   v => (v && v.length >= 5) || "Password must have 5+ characters",
@@ -105,10 +105,10 @@ export default {
     login() {
       console.log("login");
       this.$http
-        .post("http://localhost:8000/rest-auth/login/", {
+        .post("http://127.0.0.1:8000/rest-auth/login/", {
           username: this.name,
-          email: this.email,
-          password: this.password
+          email: this.userEmail,
+          password: this.userPassword
         })
         .then(
           response => {

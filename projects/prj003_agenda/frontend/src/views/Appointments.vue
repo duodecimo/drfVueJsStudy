@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card>
-      <v-card-title>Appointments</v-card-title>
+      <v-card-title>Compromissos</v-card-title>
       <v-card-text>
         <div v-if="appointments">
           <div v-for="appointment in appointments" :key="appointment.id">
@@ -66,7 +66,10 @@ export default {
   }),
   methods: {
     formatDate(str) {
-      const result = moment(str).format("ddd, MMMM Do YYYY, hh:mm:ss");
+      // moment.locale("pt-br");
+      const result = moment(str)
+        .locale("pt-br")
+        .format("ddd, LL , hh:mm:ss");
       return result;
     },
     selectAction(appointment) {

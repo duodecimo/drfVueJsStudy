@@ -19,6 +19,10 @@ from django.urls import include, path, re_path
 from rest_framework.routers import DefaultRouter
 from agendaApp.views import AppointmentViewSet, CustomUserViewSet
 
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import TemplateView
+
 
 router = DefaultRouter()
 
@@ -27,7 +31,9 @@ router.register('appointments', AppointmentViewSet)
 router.register('users', CustomUserViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path(r'admin/', admin.site.urls),
+    path(r'api/', include(router.urls)),
     re_path(r'^rest-auth/', include('rest_auth.urls')),
-    path('registration/', include('rest_auth.registration.urls'))]
+    path(r'registration/', include('rest_auth.registration.urls')),
+    re_path(r'', TemplateView.as_view(template_name='index.html')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

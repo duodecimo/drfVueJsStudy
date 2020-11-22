@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +33,9 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
-    'http://127.0.0.1:8080'
+    'http://127.0.0.1:8080',
+    'http://192.168.25.5:8080',
+    'http://127.0.0.1:8000',
 )
 
 # Application definition
@@ -68,10 +71,26 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'prj003_agenda.urls'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'dist/static'),
+)
+
+STATIC_URL = '/static/'
+
+# Directory where Django static files are collected
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Vue project location
+FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'dist'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,17 +150,12 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = '/static/'
-
 REST_FRAMEWORK = {
     # Authentication Scheme
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ),
     # Permission Policies
     'DEFAULT_PERMISSION_CLASSES': [

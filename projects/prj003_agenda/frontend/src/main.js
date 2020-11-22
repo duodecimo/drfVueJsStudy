@@ -17,8 +17,6 @@ export default new Vuetify({});
 
 Vue.use(VueResource);
 
-Vue.http.options.root = "api";
-
 new Vue({
   router,
   store,

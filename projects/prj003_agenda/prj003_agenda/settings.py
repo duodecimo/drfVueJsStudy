@@ -165,3 +165,5 @@ REST_FRAMEWORK = {
 
 # Custom User Model
 AUTH_USER_MODEL = "agendaApp.CustomUser"
+
+SITE_ID = 1

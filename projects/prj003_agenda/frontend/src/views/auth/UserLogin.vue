@@ -1,60 +1,96 @@
 <template>
-  <v-form ref="form" @submit.prevent class="ma-sm-8" v-model="valid">
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Seu nome"
-      placeholder="Digite seu nome de login"
-      outlined
-      required
-      clearable
-    ></v-text-field>
+  <section>
+    <v-container>
+      <v-card elevation="10" class="mx-auto my-12" max-width="60%">
+        <div id="login-header">Login</div>
+        <v-card-text>
+          <v-row class="text-center">
+            <v-col cols="12">
+              <v-form
+                ref="form"
+                @submit.prevent
+                class="ma-sm-8"
+                v-model="valid"
+              >
+                <v-text-field
+                  v-model="userName"
+                  :prepend-icon="'mdi-account'"
+                  :counter="10"
+                  :rules="nameRules"
+                  label="Seu nome"
+                  placeholder="Digite seu nome de login"
+                  outlined
+                  required
+                  clearable
+                ></v-text-field>
 
-    <v-text-field
-      v-model="userEmail"
-      :rules="emailRules"
-      label="Seu e-mail"
-      placeholder="Digite seu e-mail"
-      outlined
-      clearable
-    ></v-text-field>
+                <v-text-field
+                  v-model="userEmail"
+                  :rules="emailRules"
+                  prepend-icon="mdi-email"
+                  label="Seu e-mail"
+                  placeholder="Digite seu e-mail"
+                  outlined
+                  clearable
+                ></v-text-field>
 
-    <v-text-field
-      v-model="userPassword"
-      :append-icon="pwShow ? 'mdi-eye' : 'mdi-eye-off'"
-      :rules="passwordRules"
-      :type="pwShow ? 'text' : 'password'"
-      name="input-10-1"
-      label="Sua senha"
-      placeholder="Digite sua senha"
-      counter
-      outlined
-      required
-      clearable
-      @click:append="pwShow = !pwShow"
-    ></v-text-field>
+                <v-text-field
+                  v-model="userPassword"
+                  prepend-icon="mdi-lock"
+                  :append-icon="pwShow ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="passwordRules"
+                  :type="pwShow ? 'text' : 'password'"
+                  name="input-10-1"
+                  label="Sua senha"
+                  placeholder="Digite sua senha"
+                  counter
+                  outlined
+                  required
+                  clearable
+                  @click:append="pwShow = !pwShow"
+                ></v-text-field>
 
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="login">
-      Login
-    </v-btn>
+                <v-btn
+                  :disabled="!valid"
+                  color="success"
+                  class="mr-4"
+                  @click="login"
+                >
+                  Login
+                </v-btn>
 
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-      Validate
-    </v-btn>
+                <v-btn
+                  :disabled="!valid"
+                  color="success"
+                  class="mr-4"
+                  @click="validate"
+                >
+                  Validate
+                </v-btn>
 
-    <v-btn color="error" class="mr-4" @click="reset">
-      Reset Form
-    </v-btn>
+                <v-btn color="error" class="mr-4" @click="reset">
+                  Reset Form
+                </v-btn>
 
-    <v-btn color="warning" class="mr-4" @click="resetValidation">
-      Reset Validation
-    </v-btn>
+                <v-btn color="warning" class="mr-4" @click="resetValidation">
+                  Reset Validation
+                </v-btn>
 
-    <v-btn :disabled="!valid" color="error" class="mr-4" @click="logout">
-      Logout
-    </v-btn>
-  </v-form>
+                <v-btn
+                  :disabled="!valid"
+                  color="error"
+                  class="mr-4"
+                  @click="logout"
+                >
+                  Logout
+                </v-btn>
+              </v-form>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-container>
+  </section>
 </template>
 
 <script>
@@ -63,7 +99,7 @@ import { mapActions } from "vuex";
 export default {
   data: () => ({
     valid: true,
-    name: null,
+    userName: null,
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length >= 4) || "O nome deve ter pelo menos 4 caracteres"
@@ -106,7 +142,7 @@ export default {
       console.log("login");
       this.$http
         .post("http://127.0.0.1:8000/rest-auth/login/", {
-          username: this.name,
+          username: this.userName,
           email: this.userEmail,
           password: this.userPassword
         })

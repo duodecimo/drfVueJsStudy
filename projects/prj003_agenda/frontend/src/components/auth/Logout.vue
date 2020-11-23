@@ -48,7 +48,7 @@ export default {
           response => {
             console.log("response: ", response.data.detail);
             this.setAuthentication(null);
-            alert(response.data.detail);
+            console.log(response.data.detail);
             this.$router.push({ path: "/login" });
           },
           err => {

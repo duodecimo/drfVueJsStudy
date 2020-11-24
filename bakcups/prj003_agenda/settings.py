@@ -33,7 +33,6 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
-    'http://localhost:8000',
     'http://127.0.0.1:8080',
     'http://192.168.25.5:8080',
     'http://127.0.0.1:8000',
@@ -156,7 +155,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ),
     # Permission Policies
     'DEFAULT_PERMISSION_CLASSES': [

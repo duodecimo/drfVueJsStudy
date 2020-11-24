@@ -30,13 +30,13 @@ Content-type: application/json
 
 GET http://127.0.0.1:8000/api/appointments/
 Content-type: application/json
-Authorization: Token 0909905eecf4da56b51a7bb95b30a12eeef87dd7
+Authorization: Token de96823085df006635a713c337e8620659e3a783
 
 ###
 
 POST http://127.0.0.1:8000/api/appointments/
 Content-type: application/json
-Authorization: Token 0909905eecf4da56b51a7bb95b30a12eeef87dd7
+Authorization: Token de96823085df006635a713c337e8620659e3a783
 
 {
     "title": "Conferência remota",

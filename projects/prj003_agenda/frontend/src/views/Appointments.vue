@@ -58,6 +58,7 @@
                       </template>
                       <v-date-picker
                         v-model="editedItem.dt_begins_at"
+                        locale="pt-br"
                         scrollable
                       >
                         <v-spacer></v-spacer>

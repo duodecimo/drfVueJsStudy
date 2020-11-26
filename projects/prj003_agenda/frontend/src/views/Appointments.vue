@@ -70,7 +70,7 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="editedItem.begins_at_date"
+                          v-model="formattedBeginDate"
                           label="Data de inicio"
                           prepend-icon="mdi-calendar"
                           readonly
@@ -110,11 +110,49 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.ends_at_date"
-                      label="fim"
-                      @blur="formatDate('editedItem.ends_at_date')"
-                    ></v-text-field>
+                    <v-menu
+                      ref="dt_fim_menu"
+                      v-model="dt_fim_menu"
+                      :close-on-content-click="false"
+                      :return-value.sync="editedItem.ends_at_date"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="formattedEndDate"
+                          label="Data do fim"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="editedItem.ends_at_date"
+                        locale="pt-br"
+                        scrollable
+                      >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="dt_fim_menu = false"
+                        >
+                          Cancelar
+                        </v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="
+                            $refs.dt_fim_menu.save(editedItem.ends_at_date)
+                          "
+                        >
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-menu>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
@@ -182,6 +220,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     dt_ini_menu: false,
+    dt_fim_menu: false,
     headers: [
       {
         text: "Nome",
@@ -220,6 +259,16 @@ export default {
     ...mapGetters(["authentication"]),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
+    formattedBeginDate() {
+      return this.editedItem.begins_at_date
+        ? this.formatDate(this.editedItem.begins_at_date)
+        : "";
+    },
+    formattedEndDate() {
+      return this.editedItem.ends_at_date
+        ? this.formatDate(this.editedItem.ends_at_date)
+        : "";
     }
   },
   watch: {

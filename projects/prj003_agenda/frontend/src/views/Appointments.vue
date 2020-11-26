@@ -5,6 +5,18 @@
     sort-by="calories"
     class="elevation-1"
   >
+    <template v-slot:[`item.begins_at_date`]="{ item }">
+      <span>{{ formatDate(item.begins_at_date) }}</span>
+    </template>
+    <template v-slot:[`item.begins_at_time`]="{ item }">
+      <span>{{ formatTime(item.begins_at_time) }}</span>
+    </template>
+    <template v-slot:[`item.ends_at_date`]="{ item }">
+      <span>{{ formatDate(item.ends_at_date) }}</span>
+    </template>
+    <template v-slot:[`item.ends_at_time`]="{ item }">
+      <span>{{ formatTime(item.ends_at_time) }}</span>
+    </template>
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Eventos</v-toolbar-title>
@@ -91,6 +103,7 @@
                     <v-text-field
                       v-model="editedItem.ends_at_date"
                       label="fim"
+                      @blur="formatDate('editedItem.ends_at_date')"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -168,9 +181,9 @@ export default {
       },
       { text: "descrição", value: "description" },
       { text: "inicio", value: "begins_at_date" },
-      { text: "hora inicio", value: "begins_at_time" },
+      { text: "hora", value: "begins_at_time" },
       { text: "fim", value: "ends_at_date" },
-      { text: "hora fim", value: "ends_at_time" },
+      { text: "hora", value: "ends_at_time" },
       { text: "Ações", value: "actions", sortable: false }
     ],
     appointments: [],
@@ -214,10 +227,11 @@ export default {
 
   methods: {
     formatDate(str) {
-      // moment.locale("pt-br");
-      const result = moment(str)
-        .locale("pt-br")
-        .format("ddd, LL , hh:mm:ss");
+      const result = moment(str).format("DD/MM/YYYY");
+      return result;
+    },
+    formatTime(str) {
+      const result = moment(str, "HH:mm:ss").format("HH:mm");
       return result;
     },
     initialize() {

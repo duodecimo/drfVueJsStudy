@@ -16,8 +16,10 @@ class Appointment(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    begins_at = models.DateTimeField()
-    ends_at = models.DateTimeField()
+    begins_at_date = models.DateField()
+    begins_at_time = models.TimeField()
+    ends_at_date = models.DateField()
+    ends_at_time = models.TimeField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE,
                              related_name="appointments")

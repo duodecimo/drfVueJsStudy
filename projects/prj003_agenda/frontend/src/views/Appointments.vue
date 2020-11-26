@@ -41,14 +41,14 @@
                       ref="dt_ini_menu"
                       v-model="dt_ini_menu"
                       :close-on-content-click="false"
-                      :return-value.sync="editedItem.dt_begins_at"
+                      :return-value.sync="editedItem.begins_at_date"
                       transition="scale-transition"
                       offset-y
                       min-width="290px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="editedItem.dt_begins_at"
+                          v-model="editedItem.begins_at_date"
                           label="Data de inicio"
                           prepend-icon="mdi-calendar"
                           readonly
@@ -57,7 +57,7 @@
                         ></v-text-field>
                       </template>
                       <v-date-picker
-                        v-model="editedItem.dt_begins_at"
+                        v-model="editedItem.begins_at_date"
                         locale="pt-br"
                         scrollable
                       >
@@ -73,7 +73,7 @@
                           text
                           color="primary"
                           @click="
-                            $refs.dt_ini_menu.save(editedItem.dt_begins_at)
+                            $refs.dt_ini_menu.save(editedItem.begins_at_date)
                           "
                         >
                           OK
@@ -83,8 +83,20 @@
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
-                      v-model="editedItem.ends_at"
+                      v-model="editedItem.begins_at_time"
+                      label="hora"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.ends_at_date"
                       label="fim"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.ends_at_time"
+                      label="hora"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -155,8 +167,10 @@ export default {
         value: "title"
       },
       { text: "descrição", value: "description" },
-      { text: "inicio", value: "dt_begins_at" },
-      { text: "fim", value: "ends_at" },
+      { text: "inicio", value: "begins_at_date" },
+      { text: "hora inicio", value: "begins_at_time" },
+      { text: "fim", value: "ends_at_date" },
+      { text: "hora fim", value: "ends_at_time" },
       { text: "Ações", value: "actions", sortable: false }
     ],
     appointments: [],
@@ -164,14 +178,18 @@ export default {
     editedItem: {
       title: "",
       description: "",
-      dt_begins_at: "",
-      ends_at: ""
+      begins_at_date: "",
+      begins_at_time: "",
+      ends_at_date: "",
+      ends_at_time: ""
     },
     defaultItem: {
       title: "",
       description: "",
-      dt_begins_at: "",
-      ends_at: ""
+      begins_at_date: "",
+      begins_at_time: "",
+      ends_at_date: "",
+      ends_at_time: ""
     }
   }),
 
@@ -273,13 +291,12 @@ export default {
                   " user: ",
                   appointment.user,
                   " title: ",
-                  appointment.title
+                  appointment.title,
+                  " begin date: ",
+                  appointment.begins_at_date,
+                  " end date: ",
+                  appointment.ends_at_date
                 );
-                (appointment.dt_begins_at = appointment.begins_at.substr(
-                  0,
-                  10
-                )),
-                  (appointment.ends_at = this.formatDate(appointment.ends_at));
               });
               resolve(response);
             },

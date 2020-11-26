@@ -2,8 +2,18 @@
   <v-data-table
     :headers="headers"
     :items="appointments"
+    :items-per-page="3"
     sort-by="inicio"
     class="elevation-1"
+    :footer-props="{
+      showFirstLastPage: true,
+      firstIcon: 'mdi-arrow-collapse-left',
+      lastIcon: 'mdi-arrow-collapse-right',
+      prevIcon: 'mdi-minus',
+      nextIcon: 'mdi-plus',
+      itemsPerPageText: 'Linhas por página',
+      itemsPerPageOptions: [3, 6, 9, -1]
+    }"
   >
     <template v-slot:[`item.begins_at_date`]="{ item }">
       <span>{{ formatDate(item.begins_at_date) }}</span>

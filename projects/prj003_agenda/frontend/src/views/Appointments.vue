@@ -2,7 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="appointments"
-    sort-by="calories"
+    sort-by="inicio"
     class="elevation-1"
   >
     <template v-slot:[`item.begins_at_date`]="{ item }">
@@ -25,7 +25,7 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              New Item
+              Novo evento
             </v-btn>
           </template>
           <v-card>
@@ -227,7 +227,9 @@ export default {
 
   methods: {
     formatDate(str) {
-      const result = moment(str).format("DD/MM/YYYY");
+      const result = moment(str)
+        .locale("pt-br")
+        .format("ddd, DD/MM/YYYY");
       return result;
     },
     formatTime(str) {

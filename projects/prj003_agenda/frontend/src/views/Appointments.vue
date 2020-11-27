@@ -3,7 +3,7 @@
     :headers="headers"
     :items="appointments"
     :items-per-page="3"
-    sort-by="inicio"
+    sort-by="begins_at_date"
     class="elevation-1"
     :footer-props="{
       showFirstLastPage: true,

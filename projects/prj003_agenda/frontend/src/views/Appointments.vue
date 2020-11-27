@@ -219,10 +219,10 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="close">
-                Cancel
+                Cancelar
               </v-btn>
               <v-btn color="blue darken-1" text @click="save">
-                Save
+                Salvar
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -230,12 +230,12 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="headline"
-              >Are you sure you want to delete this item?</v-card-title
+              >Tem certeza que quer eliminar o evento?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
+                >Cancelar</v-btn
               >
               <v-btn color="blue darken-1" text @click="deleteItemConfirm"
                 >OK</v-btn
@@ -377,6 +377,7 @@ export default {
 
     deleteItemConfirm() {
       this.appointments.splice(this.editedIndex, 1);
+      this.removeAppointment(this.editedItem);
       this.closeDelete();
     },
 
@@ -399,9 +400,17 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.appointments[this.editedIndex], this.editedItem);
+        this.updateAppointment(this.editedItem);
       } else {
         this.appointments.push(this.editedItem);
+        this.createAppointment(this.editedItem);
       }
+      console.log(">>> Em save() - editedItem:");
+      console.log(
+        "   id: ",
+        this.editedItem.id ? this.editedItem.id : "Não há"
+      );
+      console.log("   nome: ", this.editedItem.title);
       this.close();
     },
 
@@ -454,6 +463,84 @@ export default {
               } else {
                 alert("We are sorry, there was a failure. Try again latter!");
               }
+              console.log("Error: ", error);
+              reject(error);
+            }
+          );
+      });
+    },
+    createAppointment(payload) {
+      return new Promise((resolve, reject) => {
+        console.log(
+          "Em createAppointment, authentication: ",
+          `${this.authentication}`
+        );
+        // .get("http://127.0.0.1:8000/api/appointments/", {
+        this.$http
+          .post("api/appointments/", JSON.stringify(payload), {
+            headers: {
+              Authorization: `${this.authentication}`
+            }
+          })
+          .then(response => response.json())
+          .then(
+            response => {
+              console.log("response: ", response);
+              resolve(response);
+            },
+            error => {
+              console.log("Error: ", error);
+              reject(error);
+            }
+          );
+      });
+    },
+    updateAppointment(payload) {
+      return new Promise((resolve, reject) => {
+        console.log(
+          "Em updateAppointment, authentication: ",
+          `${this.authentication}`
+        );
+        // .get("http://127.0.0.1:8000/api/appointments/", {
+        this.$http
+          .put(`api/appointments/${payload.id}/`, JSON.stringify(payload), {
+            headers: {
+              Authorization: `${this.authentication}`
+            }
+          })
+          .then(response => response.json())
+          .then(
+            response => {
+              console.log("response: ", response);
+              resolve(response);
+            },
+            error => {
+              console.log("Error: ", error);
+              reject(error);
+            }
+          );
+      });
+    },
+    removeAppointment(payload) {
+      return new Promise((resolve, reject) => {
+        console.log(
+          "Em removeAppointment, authentication: ",
+          `${this.authentication}`
+        );
+        // .get("http://127.0.0.1:8000/api/appointments/", {
+        this.$http
+          .delete(`api/appointments/${payload.id}/`, {
+            headers: {
+              Authorization: `${this.authentication}`
+            }
+          })
+          .then(
+            response => {
+              console.log("response: ", response);
+              console.log("response status: ", response.status);
+              resolve(response);
+            },
+            error => {
               console.log("Error: ", error);
               reject(error);
             }

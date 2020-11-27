@@ -104,10 +104,36 @@
                     </v-menu>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.begins_at_time"
-                      label="hora"
-                    ></v-text-field>
+                    <v-menu
+                      ref="tm_ini_menu"
+                      v-model="tm_ini_menu"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="editedItem.begins_at_time"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="editedItem.begins_at_time"
+                          label="hora"
+                          prepend-icon="mdi-clock-time-four-outline"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker
+                        v-if="tm_ini_menu"
+                        v-model="editedItem.begins_at_time"
+                        format="24hr"
+                        @click:minute="
+                          $refs.tm_ini_menu.save(editedItem.begins_at_time)
+                        "
+                      ></v-time-picker>
+                    </v-menu>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-menu
@@ -155,10 +181,36 @@
                     </v-menu>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.ends_at_time"
-                      label="hora"
-                    ></v-text-field>
+                    <v-menu
+                      ref="tm_fim_menu"
+                      v-model="tm_fim_menu"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="editedItem.ends_at_time"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="editedItem.ends_at_time"
+                          label="hora"
+                          prepend-icon="mdi-clock-time-four-outline"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker
+                        v-if="tm_fim_menu"
+                        v-model="editedItem.ends_at_time"
+                        format="24hr"
+                        @click:minute="
+                          $refs.tm_fim_menu.save(editedItem.ends_at_time)
+                        "
+                      ></v-time-picker>
+                    </v-menu>
                   </v-col>
                 </v-row>
               </v-container>
@@ -220,7 +272,9 @@ export default {
     dialog: false,
     dialogDelete: false,
     dt_ini_menu: false,
+    tm_ini_menu: false,
     dt_fim_menu: false,
+    tm_fim_menu: false,
     headers: [
       {
         text: "Nome",
@@ -265,11 +319,21 @@ export default {
         ? this.formatDate(this.editedItem.begins_at_date)
         : "";
     },
+    // formattedBeginTime() {
+    //   return this.editedItem.begins_at_time
+    //     ? this.formatTime(this.editedItem.begins_at_time)
+    //     : "";
+    // },
     formattedEndDate() {
       return this.editedItem.ends_at_date
         ? this.formatDate(this.editedItem.ends_at_date)
         : "";
     }
+    // formattedEndTime() {
+    //   return this.editedItem.ends_at_time
+    //     ? this.formatTime(this.editedItem.ends_at_time)
+    //     : "";
+    // }
   },
   watch: {
     dialog(val) {
@@ -372,6 +436,12 @@ export default {
                   " end date: ",
                   appointment.ends_at_date
                 );
+                appointment.begins_at_time = appointment.begins_at_time
+                  ? appointment.begins_at_time.substring(0, 5)
+                  : null;
+                appointment.ends_at_time = appointment.ends_at_time
+                  ? appointment.ends_at_time.substring(0, 5)
+                  : null;
               });
               resolve(response);
             },

@@ -52,6 +52,12 @@ const routes = [
     name: "appointments",
     meta: { requiresAuth: true },
     component: () => import("../views/Appointments.vue")
+  },
+  {
+    path: "/editable",
+    name: "editable",
+    meta: { requiresAuth: true },
+    component: () => import("../views/EditableColsTable.vue")
   }
 ];
 

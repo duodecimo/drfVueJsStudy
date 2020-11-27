@@ -19,6 +19,7 @@
         >About</router-link
       >
       <router-link class="ml-md-8" to="/appointments">Appointments</router-link>
+      <router-link class="ml-md-8" to="/editable">Editable Cols</router-link>
       <router-link class="ml-md-8" to="/login">Login</router-link>
       <v-spacer></v-spacer>
 

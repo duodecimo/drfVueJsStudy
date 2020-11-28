@@ -40,7 +40,7 @@
           @open="open"
           @close="close"
         >
-          <div>{{ props.item.iron }}</div>
+          <div :class="isColor(props.item)">{{ props.item.iron }}</div>
           <template v-slot:input>
             <div class="mt-4 title">
               Update Iron
@@ -194,6 +194,10 @@ export default {
     },
     close() {
       console.log("Dialog closed");
+    },
+    isColor(item) {
+      console.log("isColor: ", item.iron);
+      return item.iron && item.iron == "1%" ? "red" : "blue";
     }
   }
 };

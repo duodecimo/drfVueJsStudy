@@ -360,7 +360,12 @@ export default {
       return result;
     },
     initialize() {
-      this.getAppointments();
+      this.getAppointments().then(
+        () => {
+          console.log("Compromissos carregados!");
+        },
+        error => console.log("Erro carregando os compromissos: ", error)
+      );
     },
 
     editItem(item) {
@@ -442,8 +447,12 @@ export default {
                   appointment.title,
                   " begin date: ",
                   appointment.begins_at_date,
+                  " begin time: ",
+                  appointment.begins_at_time,
                   " end date: ",
-                  appointment.ends_at_date
+                  appointment.ends_at_date,
+                  " end time: ",
+                  appointment.ends_at_time
                 );
                 appointment.begins_at_time = appointment.begins_at_time
                   ? appointment.begins_at_time.substring(0, 5)

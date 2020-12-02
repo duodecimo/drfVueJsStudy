@@ -1,0 +1,9 @@
+// verificar serviço usando porta:
+sudo lsof -t -i:8000
+
+// fechar servidor que ficou aberto:
+sudo kill -9 $(sudo lsof -t -i:8000)
+
+// criar novo projeto para django framework
+source /extra2/environments/drf/bin/activate
+django-admin startproject <nome do projeto>

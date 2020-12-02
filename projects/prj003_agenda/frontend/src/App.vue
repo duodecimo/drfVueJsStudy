@@ -2,6 +2,9 @@
   <div id="app">
     <v-app id="inspire" :style="fontSize">
       <v-main>
+        <balloon v-if="active_meeting" title="WebMeeting" position="top-left">
+          <meeting />
+        </balloon>
         <app-navigation />
         <keep-alive>
           <router-view />
@@ -20,11 +23,16 @@
 
 <script>
 import Navigation from "@/components/navigation/Navigation.vue";
+import Balloon from "vue-balloon";
+import Meeting from "@/components/appointments/Meeting.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "app",
   components: {
-    "app-navigation": Navigation
+    "app-navigation": Navigation,
+    balloon: Balloon,
+    meeting: Meeting
   },
   created() {
     this.$vuetify.theme.dark = false;
@@ -33,6 +41,7 @@ export default {
     console.log("breakpoint width: ", this.$vuetify.breakpoint.width);
   },
   computed: {
+    ...mapGetters(["active_meeting"]),
     fontSize() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":

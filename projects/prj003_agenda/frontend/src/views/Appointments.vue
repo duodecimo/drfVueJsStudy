@@ -254,6 +254,9 @@
       <v-icon small @click="deleteItem(item)">
         mdi-delete
       </v-icon>
+      <v-icon small @click="startMeeting(item)">
+        mdi-account-multiple-plus
+      </v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">
@@ -265,6 +268,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import moment from "moment";
 
 export default {
@@ -349,6 +353,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["set_active_meeting"]),
+
     formatDate(str) {
       const result = moment(str)
         .locale("pt-br")
@@ -555,6 +561,9 @@ export default {
             }
           );
       });
+    },
+    startMeeting() {
+      this.set_active_meeting(true);
     }
   }
 };

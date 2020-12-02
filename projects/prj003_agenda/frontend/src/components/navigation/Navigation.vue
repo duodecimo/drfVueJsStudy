@@ -27,7 +27,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn icon @click="(logoutDialog = true), setShowLogout(true)">
+      <v-btn icon @click="(logoutDialog = true), set_show_logout(true)">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
 
@@ -50,7 +50,7 @@ export default {
     logoutDialog: false
   }),
   methods: {
-    ...mapActions(["setShowLogout"])
+    ...mapActions(["set_show_logout"])
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="showLogout" persistent max-width="290">
+    <v-dialog v-model="show_logout" persistent max-width="290">
       <v-card>
         <v-card-title class="headline">
           Logout?
@@ -13,7 +13,7 @@
           <v-btn
             color="green darken-1"
             text
-            @click="setShowLogout(false), $emit('executed')"
+            @click="set_show_logout(false), $emit('executed')"
           >
             Não
           </v-btn>
@@ -31,7 +31,7 @@ import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {
   methods: {
-    ...mapActions(["setAuthentication", "setShowLogout"]),
+    ...mapActions(["set_authentication", "set_show_logout"]),
     logout() {
       console.log("logout");
       this.$http
@@ -47,7 +47,7 @@ export default {
         .then(
           response => {
             console.log("response: ", response.data.detail);
-            this.setAuthentication(null);
+            this.set_authentication(null);
             console.log(response.data.detail);
             this.$router.push({ path: "/login" });
           },
@@ -55,12 +55,12 @@ export default {
             console.log("Em UserLogin - logout() - Err status: ", err.status);
           }
         );
-      this.setShowLogout(false);
+      this.set_show_logout(false);
       this.$emit("executed");
     }
   },
   computed: {
-    ...mapGetters(["authentication", "showLogout"])
+    ...mapGetters(["authentication", "show_logout"])
   }
 };
 </script>

@@ -13,7 +13,7 @@
                 v-model="valid"
               >
                 <v-text-field
-                  v-model="userName"
+                  v-model="twcp_user_name"
                   :prepend-icon="'mdi-account'"
                   :counter="10"
                   :rules="nameRules"
@@ -99,7 +99,6 @@ import { mapActions } from "vuex";
 export default {
   data: () => ({
     valid: true,
-    userName: null,
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length >= 4) || "O nome deve ter pelo menos 4 caracteres"
@@ -126,9 +125,21 @@ export default {
     ],
     pwShow: false
   }),
-
+  computed: {
+    ...mapGetters(["user_name", "authentication"]),
+    // two way computed property
+    // https://vuex.vuejs.org/guide/forms.html#two-way-computed-property
+    twcp_user_name: {
+      get() {
+        return this.user_name;
+      },
+      set(value) {
+        this.set_user_name(value);
+      }
+    }
+  },
   methods: {
-    ...mapActions(["setAuthentication"]),
+    ...mapActions(["set_user_name", "set_authentication"]),
     validate() {
       this.$refs.form.validate();
     },
@@ -141,8 +152,10 @@ export default {
     login() {
       console.log("login");
       this.$http
-        .post("http://127.0.0.1:8000/rest-auth/login/", {
-          username: this.userName,
+        // .post("http://127.0.0.1:8000/rest-auth/login/", {
+        // .post("http://192.168.25.5:8000/rest-auth/login/", {
+        .post("api/rest-auth/login/", {
+          username: this.user_name,
           email: this.userEmail,
           password: this.userPassword
         })
@@ -151,7 +164,7 @@ export default {
             console.log("response: ", response);
             console.log("data key: ", response.data.key);
             console.log("data key: ", `Token response.data.key`);
-            this.setAuthentication("Token " + response.data.key).then(
+            this.set_authentication("Token " + response.data.key).then(
               console.log(
                 "UserLogin - login() - authentication: ",
                 this.authentication
@@ -180,7 +193,7 @@ export default {
         .then(
           response => {
             console.log("response: ", response.data.detail);
-            this.setAuthentication(null);
+            this.set_authentication(null);
             alert(response.data.detail);
           },
           err => {
@@ -189,9 +202,6 @@ export default {
         );
       // Authorization: `Token ${localStorage.getItem("token")}`
     }
-  },
-  computed: {
-    ...mapGetters(["authentication"])
   }
 };
 </script>

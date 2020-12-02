@@ -36,7 +36,8 @@ export default {
       console.log("logout");
       this.$http
         .post(
-          "http://localhost:8000/rest-auth/logout/",
+          "http://192.168.25.5:8000/rest-auth/logout/",
+          // "http://localhost:8000/rest-auth/logout/",
           {},
           {
             headers: {

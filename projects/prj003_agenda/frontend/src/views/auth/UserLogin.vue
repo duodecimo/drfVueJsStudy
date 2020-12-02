@@ -153,8 +153,8 @@ export default {
       console.log("login");
       this.$http
         // .post("http://127.0.0.1:8000/rest-auth/login/", {
-        // .post("http://192.168.25.5:8000/rest-auth/login/", {
-        .post("api/rest-auth/login/", {
+        .post("http://192.168.25.5:8000/rest-auth/login/", {
+          // .post("api/rest-auth/login/", {
           username: this.user_name,
           email: this.userEmail,
           password: this.userPassword

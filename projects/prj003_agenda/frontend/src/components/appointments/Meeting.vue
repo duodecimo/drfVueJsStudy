@@ -82,24 +82,25 @@ export default {
       // );
 
       const testdomain = "meet.jit.si";
+      //https://192.168.25.5:8443/
+
       const testoptions = {
         roomName: "testroom",
-        width: 1200,
-        height: 500,
+        // width: 1200,
+        // height: 500,
         parentNode: document.querySelector("#meet"),
         configOverwrite: {
           prejoinPageEnabled: false,
           enableNoisyMicDetection: false,
           enableWelcomePage: false,
-          // tentativa para não oferecer opção entre aplicativo e
-          // página no mobile, ir direto pra pagina
           disableDeepLinking: true
         },
         interfaceConfigOverwrite: {
           SHOW_CHROME_EXTENSION_BANNER: false,
           HIDE_INVITE_MORE_HEADER: true,
           PROVIDER_NAME: true,
-          MOBILE_APP_PROMO: false
+          MOBILE_APP_PROMO: false,
+          VIDEO_LAYOUT_FIT: "both"
         }
       };
       var jitsiApi = new JitsiMeetExternalAPI(testdomain, testoptions);
@@ -115,6 +116,31 @@ export default {
       });
       this.atualizarAgendamento("abertura");
       this.createAppointmentNotification();
+    },
+    loadScript(src, cb) {
+      // To embed Jitsi Meet in your application you need to add a script tag
+      // with the Jitsi Meet API library, i.e.:
+      // src="https://meet.jit.si/external_api.js"
+      const scriptEl = document.createElement("script");
+      scriptEl.src = src;
+      scriptEl.async = 1;
+      console.log(">>> Chamando a url de jitsi. ", scriptEl);
+      document.querySelector("body").appendChild(scriptEl);
+      // document.querySelector("head").appendChild(scriptEl);
+      scriptEl.addEventListener("load", cb);
+      scriptEl.addEventListener("error", event => {
+        console.log("&&& Evento erro:", event);
+        alert(
+          "Falha na conexão com o servidor de meeting. A janela será fechada. " +
+            "Tente entrar novamente pelo evento marcado."
+        );
+        this.set_active_meeting(false);
+        // route to appointments
+        this.$router.push("/appointments");
+      });
+    },
+    executeCommand(command, ...value) {
+      this.jitsiApi.executeCommand(command, ...value);
     },
     stopAppoinment() {
       console.log("Em consultaSessao - método stopAppoinment");
@@ -212,27 +238,6 @@ export default {
       this.set_active_meeting(false);
       // route to appointments
       this.$router.push("/appointments");
-    },
-    loadScript(src, cb) {
-      const scriptEl = document.createElement("script");
-      scriptEl.src = src;
-      scriptEl.async = 1;
-      console.log(">>> Chamando a url de jitsi. ", scriptEl);
-      document.querySelector("head").appendChild(scriptEl);
-      scriptEl.addEventListener("load", cb);
-      scriptEl.addEventListener("error", event => {
-        console.log("&&& Evento erro:", event);
-        alert(
-          "Falha na conexão com o servidor de meeting. A janela será fechada. " +
-            "Tente entrar novamente pelo evento marcado."
-        );
-        this.set_active_meeting(false);
-        // route to appointments
-        this.$router.push("/appointments");
-      });
-    },
-    executeCommand(command, ...value) {
-      this.jitsiApi.executeCommand(command, ...value);
     },
     addEventListener(event, fn) {
       this.jitsiApi.on(event, fn);

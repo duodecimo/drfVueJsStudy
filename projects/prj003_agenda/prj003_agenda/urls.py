@@ -34,6 +34,7 @@ urlpatterns = [
     path(r'admin/', admin.site.urls),
     re_path(r'api/', include(router.urls)),
     re_path(r'^rest-auth/', include('rest_auth.urls')),
+    # path(r'rest-auth/', include('rest_auth.urls')),
     path(r'registration/', include('rest_auth.registration.urls')),
     re_path(r'', TemplateView.as_view(template_name='index.html')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

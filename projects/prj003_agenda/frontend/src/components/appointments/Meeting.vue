@@ -272,7 +272,8 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.loadScript("https://meet.jit.si/external_api.js", () => {
+      // this.loadScript("https://meet.jit.si/external_api.js", () => {
+      this.loadScript("https://192.168.25.5:8443/external_api.js", () => {
         if (!window.JitsiMeetExternalAPI) {
           alert(
             "Falha na conexão com o servidor de meeting. A janela será fechada. " +

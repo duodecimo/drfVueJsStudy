@@ -19,75 +19,18 @@ export default {
     }
   }),
   computed: {
-    ...mapGetters(["active_meeting", "authentication"])
+    ...mapGetters(["user_name", "active_meeting", "authentication"])
   },
   methods: {
     ...mapActions(["set_active_meeting"]),
     startMeeting() {
-      // this.options.name =
-      //   this.jitAppointment.view == "paciente"
-      //     ? this.jitAppointment.nome_paciente
-      //     : this.jitAppointment.nome_medico;
-      // this.options.roomName = this.jitAppointment.video_identifier
-      //   ? this.jitAppointment.video_identifier
-      //   : uuidv4();
-      // // this.options.width = 1200;
-      // // this.options.height = 500;
-      // // this.options.width = "100%";
-      // // this.options.height = "100%";
-      // this.options.parentNode = document.querySelector("#meet");
-      // this.options.noSSL = false;
-      // this.options.userInfo = {
-      //   email: "",
-      //   displayName:
-      //     this.jitAppointment.view == "paciente"
-      //       ? this.jitAppointment.nome_paciente
-      //       : this.jitAppointment.nome_medico
-      // };
-      // this.options.configOverwrite = {
-      //   prejoinPageEnabled: false,
-      //   enableNoisyMicDetection: false,
-      //   enableWelcomePage: false,
-      //   // tentativa para não oferecer opção entre aplicativo e
-      //   // página no mobile, ir direto pra pagina
-      //   disableDeepLinking: true
-      // };
-      // this.options.interfaceConfigOverwrite = {
-      //   SHOW_JITSI_WATERMARK: false,
-      //   SHOW_WATERMARK_FOR_GUESTS: false,
-      //   SHOW_CHROME_EXTENSION_BANNER: false,
-      //   HIDE_INVITE_MORE_HEADER: true,
-      //   PROVIDER_NAME: true
-      //   // MOBILE_APP_PROMO: false
-      // };
-      // // this.options.onload = this.onIFrameLoad;
-      // console.log("*** Em startAppointment , checando os dados e opções:");
-      // console.log("id do agendamento: ", this.jitAppointment.id);
-      // console.log("view: ", this.jitAppointment.view);
-      // console.log("url: ", this.jitAppointment.url);
-      // console.log("domain: ", this.jitAppointment.domain);
-      // console.log("opção - name: ", this.options.name);
-      // console.log("opção - roomName: ", this.options.roomName);
-      // console.log("opção - width: ", this.options.width);
-      // console.log("opção - height: ", this.options.height);
-      // console.log(
-      //   "opção - configOverwrite - prejoinPageEnabled: ",
-      //   this.options.configOverwrite.prejoinPageEnabled
-      // );
-      // console.log("opção - parentNode: ", this.options.parentNode);
-
-      // var jitsiApi = new JitsiMeetExternalAPI(
-      //   this.jitAppointment.domain,
-      //   this.options
-      // );
-
       const testdomain = "meet.jit.si";
-      //https://192.168.25.5:8443/
-
       const testoptions = {
-        roomName: "testroom",
-        // width: 1200,
-        // height: 500,
+        userInfo: {
+          email: "",
+          displayName: this.user_name
+        },
+        roomName: "meetingRoom",
         parentNode: document.querySelector("#meet"),
         configOverwrite: {
           prejoinPageEnabled: false,
@@ -125,8 +68,8 @@ export default {
       scriptEl.src = src;
       scriptEl.async = 1;
       console.log(">>> Chamando a url de jitsi. ", scriptEl);
-      document.querySelector("body").appendChild(scriptEl);
-      // document.querySelector("head").appendChild(scriptEl);
+      // document.querySelector("body").appendChild(scriptEl);
+      document.querySelector("head").appendChild(scriptEl);
       scriptEl.addEventListener("load", cb);
       scriptEl.addEventListener("error", event => {
         console.log("&&& Evento erro:", event);
@@ -272,8 +215,8 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      // this.loadScript("https://meet.jit.si/external_api.js", () => {
-      this.loadScript("https://192.168.25.5:8443/external_api.js", () => {
+      this.loadScript("https://meet.jit.si/external_api.js", () => {
+        // this.loadScript("https://192.168.25.5:8443/external_api.js", () => {
         if (!window.JitsiMeetExternalAPI) {
           alert(
             "Falha na conexão com o servidor de meeting. A janela será fechada. " +

@@ -154,8 +154,8 @@ export default {
       this.$http
         .post(
           // "http://127.0.0.1:8000/rest-auth/login/",
-          // "http://192.168.25.5:8000/rest-auth/login/",
-          "rest-auth/login/",
+          "https://192.168.25.5:8000/rest-auth/login/",
+          // "rest-auth/login/",
           {
             username: this.user_name,
             email: this.userEmail,
@@ -178,6 +178,7 @@ export default {
           },
           err => {
             console.log("Em UserLogin - login() - Err status: ", err.status);
+            alert("Em UserLogin - login() - Err status: " + err);
           }
         );
     },

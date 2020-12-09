@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '192.168.25.5',
+    '192.168.25.12',
     '127.0.0.1'
 ]
 
@@ -37,8 +38,13 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
     'http://127.0.0.1:8080',
     'http://192.168.25.5:8080',
+    'https://192.168.25.5:8080',
+    'https://192.168.25.5:8080',
+    'https://192.168.25.12:8080',
     'http://127.0.0.1:8000',
     'http://192.168.25.5:8000',
+    'https://192.168.25.5:8000',
+    'https://192.168.25.12:8000',
 )
 
 # Application definition
@@ -58,6 +64,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'django_extensions',
     'agendaApp'
 ]
 
@@ -170,3 +177,6 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = "agendaApp.CustomUser"
 
 SITE_ID = 1
+
+
+# python manage.py runserver_plus --cert-file cert.crt 192.168.25.5:8000

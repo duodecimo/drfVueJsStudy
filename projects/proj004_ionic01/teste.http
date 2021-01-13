@@ -1,0 +1,58 @@
+# Sugstão:
+# Reinicie o servidor, utilize o endpoint
+# abaixo, e anote a 'Key' devolvida no 
+# resultado, se tudo correr bem: É o token.
+# Nos demais endpoits, ou curl, utilize o
+# token recebido.
+
+
+POST http://127.0.0.1:8000/registration/
+Content-type: application/json
+
+{
+    "username": "colimoferio",
+    "password1": "coli123456",
+    "password2": "coli123456"
+}
+
+### a55dd1c646dd194e33858836a190391a9ea55474
+
+###
+POST http://127.0.0.1:8000/rest-auth/login/
+Content-type: application/json
+
+{
+    "username": "astofoboldo",
+    "password": "segredo123456"
+}
+
+###
+
+GET http://127.0.0.1:8000/api/appointments/
+Content-type: application/json
+Authorization: Token de96823085df006635a713c337e8620659e3a783
+
+###
+
+POST http://127.0.0.1:8000/api/appointments/
+Content-type: application/json
+Authorization: Token de96823085df006635a713c337e8620659e3a783
+
+{
+    "title": "Conferência remota",
+    "description": "Funcionários do departamento!",
+    "begins_at": "2020-11-23T10:00",
+    "ends_at": "2020-11-23T11:00"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/api/appointments/7/
+Content-type: application/json
+Authorization: Token 0909905eecf4da56b51a7bb95b30a12eeef87dd7
+
+####
+curl -X GET -H "Authorization: Token 440b6465e838677a640a3f8f2be304a0cffcf412" -d ''  http://127.0.0.1:8000/api/persons/
+
+###
+

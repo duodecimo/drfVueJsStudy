@@ -60,7 +60,7 @@ export default defineComponent({
   },
   methods: {
     loadUsers() {
-      axios.get("http://127.0.0.1:8000/api/persons/").then(response => {
+      axios.get("http://localhost:8000/api/persons/").then(response => {
         this.users = response.data; // assigns the data from api call to the users variable
       });
     }

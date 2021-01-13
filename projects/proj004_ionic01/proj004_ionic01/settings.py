@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import os
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,21 +22,32 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '9umca0q$*7b_$jci(@#@*3l!k(m4$d6dm&b%%w8(7nkc+rsziu'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    '192.168.25.5',
+    '192.168.25.12',
     '127.0.0.1'
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
+    'http://localhost:8100',
     'http://localhost:8000',
     'http://127.0.0.1:8080',
     'http://192.168.25.5:8080',
+    'https://192.168.25.5:8080',
+    'https://192.168.25.5:8080',
+    'https://192.168.25.12:8080',
     'http://127.0.0.1:8000',
+    'http://192.168.25.5:8000',
+    'https://192.168.25.5:8000',
+    'https://192.168.25.12:8000',
 )
+
+
 
 # Application definition
 
@@ -47,13 +58,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
-    'django.contrib.sites',
-    'ionic01',
-
+    'corsheaders',
+    'ionic01'
 ]
 
 MIDDLEWARE = [
@@ -72,7 +79,7 @@ ROOT_URLCONF = 'proj004_ionic01.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'dist'), ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,7 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -131,37 +137,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'dist/static'),
-)
-
 STATIC_URL = '/static/'
-
-# Directory where Django static files are collected
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# Vue project location
-FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
-
-REST_FRAMEWORK = {
-    # Authentication Scheme
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-    # Permission Policies
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
-}
-
-# Custom User Model
-# AUTH_USER_MODEL = "agendaApp.CustomUser"
-
-SITE_ID = 1

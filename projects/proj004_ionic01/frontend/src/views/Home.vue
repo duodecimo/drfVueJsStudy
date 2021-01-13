@@ -2,37 +2,68 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-title>Demo Application</ion-title>
       </ion-toolbar>
     </ion-header>
-    
+
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
+          <ion-title size="small">Demo Application</ion-title>
         </ion-toolbar>
       </ion-header>
-    
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+      <div
+        id="container"
+        v-bind:class="{ 'top-margin': !users, usersShowing: users }"
+      >
+        <ion-button v-show="!users" @click="loadUsers()" expand="block"
+          >View All Users</ion-button
+        >
+        <strong v-show="users"> All Users</strong>
+        <ion-list>
+          <!-- Loops through the users array -->
+          <ion-item v-for="user in users" v-bind:key="user.id">
+            <ion-label>{{ user.name }} </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-button v-show="users" @click="users = null" color="danger"
+          >Hide Users</ion-button
+        >
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar
+} from "@ionic/vue";
+import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
-  name: 'Home',
+  name: "Home",
   components: {
     IonContent,
     IonHeader,
     IonPage,
     IonTitle,
     IonToolbar
+  },
+  data() {
+    return { users: null }; // sets users to null on instantiation
+  },
+  methods: {
+    loadUsers() {
+      axios.get("http://127.0.0.1:8000/api/persons/").then(response => {
+        this.users = response.data; // assigns the data from api call to the users variable
+      });
+    }
   }
 });
 </script>
@@ -40,29 +71,16 @@ export default defineComponent({
 <style scoped>
 #container {
   text-align: center;
-  
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+
   transform: translateY(-50%);
 }
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.top-margin {
+  top: 20%;
 }
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+.usersShowing {
+  margin-top: 70%;
 }
 </style>

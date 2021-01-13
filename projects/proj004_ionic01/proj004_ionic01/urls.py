@@ -1,20 +1,14 @@
 from django.contrib import admin
-from django.urls import include, path, re_path
+from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
-from ionic01.views import PersonViewSet
 
-from django.conf import settings
-from django.conf.urls.static import static
-from django.views.generic import TemplateView
-
+from ionic01 import views
 
 router = DefaultRouter()
-
-router.register('persons', PersonViewSet)
+router.register('persons', views.PersonViewSet)
 
 urlpatterns = [
-    path(r'admin/', admin.site.urls),
-    re_path(r'api/', include(router.urls)),
-    re_path(r'', TemplateView.as_view(template_name='index.html')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('admin/', admin.site.urls),
+    path('api/', include(router.urls))
+]

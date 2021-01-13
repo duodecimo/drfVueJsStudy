@@ -28,9 +28,8 @@ Content-type: application/json
 
 ###
 
-GET http://127.0.0.1:8000/api/appointments/
+GET http://localhost:8000/api/persons/
 Content-type: application/json
-Authorization: Token de96823085df006635a713c337e8620659e3a783
 
 ###
 

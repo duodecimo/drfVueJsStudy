@@ -11,6 +11,7 @@ class AppointmentViewSet(ModelViewSet):
     serializer_class = AppointmentSerializer
 
     def perform_create(self, serializer):
+        print("serializer: ", serializer)
         serializer.save(user=self.request.user)
 
 

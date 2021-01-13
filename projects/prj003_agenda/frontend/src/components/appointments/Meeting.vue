@@ -24,19 +24,26 @@ export default {
   methods: {
     ...mapActions(["set_active_meeting"]),
     startMeeting() {
+      // const fromMobile = prompt("Acessando com mobile: ", "sim");
+
       const testdomain = "meet.jit.si";
+
       const testoptions = {
         userInfo: {
           email: "",
           displayName: this.user_name
         },
         roomName: "meetingRoom",
+        setLanguage: "pt-BR",
         parentNode: document.querySelector("#meet"),
         configOverwrite: {
           prejoinPageEnabled: false,
           enableNoisyMicDetection: false,
           enableWelcomePage: false,
-          disableDeepLinking: true
+          disableDeepLinking: true,
+          p2p: {
+            enabled: false
+          }
         },
         interfaceConfigOverwrite: {
           SHOW_CHROME_EXTENSION_BANNER: false,
@@ -46,19 +53,33 @@ export default {
           VIDEO_LAYOUT_FIT: "both"
         }
       };
+      // if (fromMobile === "sim") {
+      //   alert(
+      //     "Vamos abrir: " +
+      //       "https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=pt-BR/" +
+      //       "meetingRoom"
+      //   );
+      //   // window.open(
+      //   //   "https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=pt-BR/" +
+      //   //     "meetingRoom"
+      //   // );
+      //   window.location.href =
+      //     "https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=org.jitsi.meet&hl=pt-BR/" +
+      //     "meetingRoom";
+      // } else {
       var jitsiApi = new JitsiMeetExternalAPI(testdomain, testoptions);
-
+      // }
       if (!jitsiApi) {
         alert("Falha na abertura de GymBrainWeb.");
         this.set_active_meeting(false);
-        // route to appointments
-        this.$router.push("/appointments");
+        // // route to appointments
+        // this.$router.push("/appointments");
       }
       jitsiApi.addEventListener("videoConferenceLeft", () => {
         this.stopAppoinment();
       });
-      this.atualizarAgendamento("abertura");
-      this.createAppointmentNotification();
+      // this.atualizarAgendamento("abertura");
+      // this.createAppointmentNotification();
     },
     loadScript(src, cb) {
       // To embed Jitsi Meet in your application you need to add a script tag
@@ -79,7 +100,7 @@ export default {
         );
         this.set_active_meeting(false);
         // route to appointments
-        this.$router.push("/appointments");
+        // this.$router.push("/appointments");
       });
     },
     executeCommand(command, ...value) {

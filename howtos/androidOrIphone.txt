@@ -1,0 +1,13 @@
+you can check the userAgent of the browser and add a link to the playstore. If the app is installed it will open the app if not the playstore of the native device will be opened.
+
+add this functionality to the click event of the button:
+
+...
+         if(navigator.userAgent.toLowerCase().indexOf("android") > -1){
+             window.location.href = 
+           'http://play.google.com/store/apps/details?id=PACKAGEURL';
+     }
+         if(navigator.userAgent.toLowerCase().indexOf("iphone") > -1){
+             window.location.href = 
+       'http://itunes.apple.com/lb/app/PACKAGEURL';
+     }

@@ -1,0 +1,10 @@
+{
+    "python.languageServer": "Pylance",        
+    "python.venvFolders": [
+        "/extra2/environments"
+    ],
+    // adapte os caminhos para sua configuração!
+    "python.venvPath": "/extra2/environments/ive",
+    "python.pythonPath": "/extra2/environments/ive/bin/python",
+    "python.formatting.provider": "autopep8"
+}

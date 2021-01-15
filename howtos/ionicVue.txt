@@ -1,0 +1,37 @@
+Tome por exemplo o projeto:
+proj004_ionic01
+
+Dicas
+
+ambiente:
+
+para iniciar de forma conveniente no vscode, podemos utilizar json para inicialização.
+Crie uma pasta:
+.vscode
+na raiz do projeto, e copie para dentro dela os arquivos:
+launch.json
+e
+settings.json
+que podem ser encontrados em:
+/extra2/drfVueJsStudy/utils/vscodeIonic
+
+(o arquivo settings.json deve ter os caminhos adaptados para seu filesystem).
+
+
+codigo:
+
+
+Quando o projeto é versionado, as bibliotecas são, naturalmente ignoradas.
+
+Para reconstruir, na primeira vez que for rodar, ou se alterações foram feitas nos
+framework, em um terminal entre na pasta frontend do projeto.
+lance:
+npm install
+e em seguida,
+npm install axios
+
+em seguida, pode lançar o servidor (na raiz)
+e em frontend, ionic serve.
+
+
+

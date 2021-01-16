@@ -44,14 +44,15 @@
         </ion-card-header>
         <ion-card-content>
           <ion-item>
-            <ion-input placeholder="Name" type="text"> </ion-input>
+            <ion-input placeholder="Name" v-model="user.name" type="text">
+            </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input placeholder="E-mail" type="email"> </ion-input>
+            <ion-input placeholder="E-mail" v-model="user.email" type="email">
+            </ion-input>
           </ion-item>
-          <ion-item>
-            <ion-button @click="showUserModal()">Dismiss</ion-button>
-          </ion-item>
+          <ion-button @click="showUserModal()">Dismiss</ion-button>
+          <ion-button @click="saveUser(), showUserModal()">Save</ion-button>
         </ion-card-content>
       </ion-card>
     </ion-modal>
@@ -97,16 +98,33 @@ export default defineComponent({
   data() {
     return {
       users: null,
-      modalOpen: false
+      modalOpen: false,
+      user: { name: null, email: null }
     }; // sets users to null on instantiation
   },
   methods: {
     loadUsers() {
-      axios.get("http://localhost:8000/api/persons/").then(response => {
-        this.users = response.data; // assigns the data from api call to the users variable
-      });
+      // axios.get("http://localhost:8000/api/persons/").then(response => {
+      axios
+        .get("https://duo-names.herokuapp.com/api/persons/")
+        .then(response => {
+          this.users = response.data; // assigns the data from api call to the users variable
+        });
+    },
+    saveUser() {
+      axios
+        .post("https://duo-names.herokuapp.com/api/persons/", this.user)
+        .then(response => {
+          console.log("saving user, response: ", response.data);
+          this.loadUsers();
+        });
     },
     showUserModal() {
+      if (this.modalOpen) {
+        console.log("user name: ", this.user.name);
+        console.log("user e-mail: ", this.user.email);
+        this.user = { name: null, email: null };
+      }
       this.modalOpen = !this.modalOpen;
     }
   }

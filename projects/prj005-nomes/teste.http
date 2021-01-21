@@ -1,0 +1,28 @@
+
+GET http://localhost:8000/api/persons/
+Content-type: application/json
+
+###
+
+GET http://localhost:8000/api/persons/3
+Content-type: application/json
+
+
+###
+
+POST http://localhost:8000/api/persons/
+Content-type: application/json
+
+{
+    "name": "Nicotilário Abrams",
+    "email": "nico@gmail.com"
+}
+
+###
+
+curl -X POST -d "grant_type=convert_token&client_id=573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com&client_secret=5vLSCQARaoapdxehoK4F3R89&backend=google-oauth2&token=https://oauth2.googleapis.com/token" http://localhost:8000/auth/convert-token
+
+
+###
+
+curl -X POST -d "client_id=573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com&client_secret=5vLSCQARaoapdxehoK4F3R89&grant_type=password&username=admin&password=admin" http://127.0.0.1:8000/auth/token

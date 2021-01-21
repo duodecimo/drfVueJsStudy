@@ -16,10 +16,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <div
-        id="container"
-        v-bind:class="{ 'top-margin': !users, usersShowing: users }"
-      >
+      <div id="container" v-bind:class="getClass()">
         <ion-button @click="showUserModal()">Create user</ion-button>
         <ion-button v-show="!users" @click="loadUsers()"
           >View All Users</ion-button
@@ -73,7 +70,8 @@ import {
   IonCardTitle,
   IonCardContent,
   IonInput,
-  IonItem
+  IonItem,
+  isPlatform
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import axios from "axios";
@@ -99,11 +97,14 @@ export default defineComponent({
     return {
       users: null,
       modalOpen: false,
-      user: { name: null, email: null }
+      user: { name: null, email: null },
+      isHybrid: false
     }; // sets users to null on instantiation
   },
   methods: {
     loadUsers() {
+      this.isHybrid = !isPlatform("android");
+      console.log("Is hybrid: ", this.isHybrid);
       // axios.get("http://localhost:8000/api/persons/").then(response => {
       axios
         .get("https://duo-names.herokuapp.com/api/persons/")
@@ -112,6 +113,7 @@ export default defineComponent({
         });
     },
     saveUser() {
+      this.isHybrid = isPlatform("hybrid");
       axios
         .post("https://duo-names.herokuapp.com/api/persons/", this.user)
         .then(response => {
@@ -126,6 +128,17 @@ export default defineComponent({
         this.user = { name: null, email: null };
       }
       this.modalOpen = !this.modalOpen;
+    },
+    getClass() {
+      if (this.users) {
+        if (this.isHybrid) {
+          return "usersShowing";
+        } else {
+          return "usersShowing-mob";
+        }
+      } else {
+        return "top-margin";
+      }
     }
   }
 });
@@ -143,7 +156,13 @@ export default defineComponent({
 .top-margin {
   top: 20%;
 }
+.top-margin-mob {
+  top: 20%;
+}
 .usersShowing {
   margin-top: 10%;
+}
+.usersShowing-mob {
+  margin-top: 35%;
 }
 </style>

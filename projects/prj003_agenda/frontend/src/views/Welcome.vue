@@ -36,6 +36,12 @@
         @click.stop="readFile"
         >PDF Show</v-btn
       >
+      <GoogleLogin
+        :params="params"
+        :renderParams="renderParams"
+        :onSuccess="onSuccess"
+        :onFailure="onFailure"
+      ></GoogleLogin>
     </div>
     <template>
       <v-row justify="center">
@@ -79,11 +85,35 @@
 </template>
 
 <script>
+import GoogleLogin from "vue-google-login";
+
 export default {
+  components: {
+    GoogleLogin
+  },
   data: () => ({
+    params: {
+      client_id:
+        "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com"
+    },
+    // only needed if you want to render the button with the google ui
+    renderParams: {
+      width: 250,
+      height: 50,
+      longtitle: true
+    },
     dialog: false
   }),
   methods: {
+    onSuccess(googleUser) {
+      console.log(googleUser);
+
+      // This only gets the user information: id, name, imageUrl and email
+      console.log(googleUser.getBasicProfile());
+    },
+    onFailure() {
+      console.log("Google login failure!");
+    },
     primeiroTeste() {
       this.$router.push({
         name: "aboutmsg",

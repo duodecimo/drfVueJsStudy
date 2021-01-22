@@ -36,12 +36,12 @@
         @click.stop="readFile"
         >PDF Show</v-btn
       >
-      <GoogleLogin
+      <!-- <GoogleLogin
         :params="params"
         :renderParams="renderParams"
         :onSuccess="onSuccess"
         :onFailure="onFailure"
-      ></GoogleLogin>
+      ></GoogleLogin> -->
     </div>
     <template>
       <v-row justify="center">
@@ -76,6 +76,8 @@
               <v-btn color="blue darken-1" text @click="dialog = false">
                 Agree
               </v-btn>
+              <v-btn v-google-signin-button="clientId" class="google-signin-button">Continue with Google</v-btn>
+
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -85,17 +87,16 @@
 </template>
 
 <script>
-import GoogleLogin from "vue-google-login";
+//import GoogleLogin from "vue-google-login";
+import GoogleSignInButton from "vue-google-signin-button-directive";
 
 export default {
-  components: {
-    GoogleLogin
+  directives: {
+    GoogleSignInButton
   },
   data: () => ({
-    params: {
-      client_id:
-        "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com"
-    },
+    clientId: "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com",
+    
     // only needed if you want to render the button with the google ui
     renderParams: {
       width: 250,
@@ -105,14 +106,12 @@ export default {
     dialog: false
   }),
   methods: {
-    onSuccess(googleUser) {
-      console.log("sucesso google login: ", googleUser);
-
-      // This only gets the user information: id, name, imageUrl and email
-      console.log("   google login profile: ", googleUser.getBasicProfile());
+    OnGoogleAuthSuccess(idToken) {
+      // Receive the idToken and make your magic with the backend
+      console.log("Google sucesso: ", idToken);
     },
-    onFailure() {
-      console.log("Google login failure!");
+    OnGoogleAuthFail(error) {
+      console.log("ERROR GOOGLE: ", error);
     },
     primeiroTeste() {
       this.$router.push({
@@ -135,3 +134,4 @@ export default {
   }
 };
 </script>
+

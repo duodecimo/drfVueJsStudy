@@ -59,7 +59,7 @@
           <v-card>
             <v-card-title>TERMOS DE USO</v-card-title>
             <v-divider></v-divider>
-            <v-card-text style="height: 600px;">
+            <v-card-text style="height: 600px">
               <iframe
                 src="https://elasticbeanstalk-sa-east-1-968044076875.s3-sa-east-1.amazonaws.com/docs/Termo3.pdf"
                 frameborder="0"
@@ -76,12 +76,15 @@
               <v-btn color="blue darken-1" text @click="dialog = false">
                 Agree
               </v-btn>
-              <v-btn v-google-signin-button="clientId" class="google-signin-button">Continue with Google</v-btn>
-
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-row>
+    </template>
+    <template>
+      <button v-google-signin-button="clientId" class="google-signin-button">
+        Continue with Google
+      </button>
     </template>
   </div>
 </template>
@@ -95,9 +98,11 @@ export default {
     GoogleSignInButton
   },
   data: () => ({
-    clientId: "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com",
-    
+    clientId:
+      "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com",
+    //"ZpEu5FurpNSMzlyA8mytGk0XeHXJW3ZKUryqYQTF",
     // only needed if you want to render the button with the google ui
+
     renderParams: {
       width: 250,
       height: 50,
@@ -116,7 +121,9 @@ export default {
     primeiroTeste() {
       this.$router.push({
         name: "aboutmsg",
-        params: { message: "primeiro teste" }
+        params: {
+          message: "primeiro teste"
+        }
       });
     },
     segundoTeste() {
@@ -124,7 +131,9 @@ export default {
       // router will complain:
       // [vue-router] missing param for named route "about": Expected "message" to be defined
       // but the page is routed, and as prop message has default, everything works
-      this.$router.push({ name: "about" });
+      this.$router.push({
+        name: "about"
+      });
     },
     readFile() {
       window.open(
@@ -134,4 +143,14 @@ export default {
   }
 };
 </script>
-
+<style>
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>

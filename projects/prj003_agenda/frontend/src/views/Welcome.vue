@@ -106,10 +106,10 @@ export default {
   }),
   methods: {
     onSuccess(googleUser) {
-      console.log(googleUser);
+      console.log("sucesso google login: ", googleUser);
 
       // This only gets the user information: id, name, imageUrl and email
-      console.log(googleUser.getBasicProfile());
+      console.log("   google login profile: ", googleUser.getBasicProfile());
     },
     onFailure() {
       console.log("Google login failure!");

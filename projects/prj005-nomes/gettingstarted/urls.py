@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 from rest_framework.routers import DefaultRouter
 
@@ -10,5 +10,6 @@ router.register('persons', views.PersonViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf')),
 ]

@@ -48,3 +48,7 @@ djangorestframework
 
 https://duo-names.herokuapp.com/ | https://git.heroku.com/duo-names.git
 
+
+create a new app into the project:
+django-admin startapp authentication
+

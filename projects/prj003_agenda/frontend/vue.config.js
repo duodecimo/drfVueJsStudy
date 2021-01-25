@@ -4,18 +4,18 @@ module.exports = {
     https: false,
     proxy: {
       "^/rest-auth": {
-        target: "http://localhost:8000",
+        target: "http://localhost:5000",
         // target: "https://192.168.25.5:8000",
         ws: false,
         logLevel: "debug"
       },
       "^/api": {
-        target: "http://localhost:8000",
+        target: "http://localhost:5000",
         // target: "https://192.168.25.5:8000",
         ws: false
       },
       "^/registration": {
-        target: "http://localhost:8000",
+        target: "http://localhost:5000",
         // target: "https://192.168.25.5:8000",
         ws: false
       }

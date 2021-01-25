@@ -36,12 +36,21 @@
         @click.stop="readFile"
         >PDF Show</v-btn
       >
-      <GoogleLogin
+      <!-- <GoogleLogin
         :params="params"
         :renderParams="renderParams"
         :onSuccess="onSuccess"
         :onFailure="onFailure"
-      ></GoogleLogin>
+        >Acesse Nomes com sua conta no google</GoogleLogin
+      > -->
+      <GoogleLogin
+        class="ml-sm-8"
+        color="primary"
+        :params="params"
+        :onSuccess="onSuccess"
+        :onFailure="onFailure"
+        >Entrar com o Google</GoogleLogin
+      >
     </div>
     <template>
       <v-row justify="center">
@@ -94,25 +103,42 @@ export default {
   data: () => ({
     params: {
       client_id:
-        "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com"
+        "673702991038-cgj9t0h0ns50b4464pbgvb7f8sdc9rtd.apps.googleusercontent.com"
     },
     // only needed if you want to render the button with the google ui
     renderParams: {
       width: 250,
       height: 50,
+      theme: "dark",
       longtitle: true
     },
     dialog: false
   }),
   methods: {
     onSuccess(googleUser) {
-      console.log("sucesso google login: ", googleUser);
+      // console.log("sucesso google login: ", googleUser);
+      // let's try to break googleUdser
+      console.log("Valores recebidos:");
+      // console.log("uc: ", googleUser.uc);
+      console.log("token type: ", googleUser.uc.token_type);
+      console.log("id token: ", googleUser.uc.id_token);
 
       // This only gets the user information: id, name, imageUrl and email
-      console.log("   google login profile: ", googleUser.getBasicProfile());
+      // console.log(
+      //   "   >>> google login profile: ",
+      //   googleUser.getBasicProfile()
+      // );
+      // veja os métodos em: https://developers.google.com/identity/sign-in/web/reference#googleusergetbasicprofile
+      console.log("Nome completo: ", googleUser.getBasicProfile().getName());
+      console.log("e-mail: ", googleUser.getBasicProfile().getEmail());
+      console.log("avatar url: ", googleUser.getBasicProfile().vI);
+      // The ID token you need to pass to your backend:
+      var id_token = googleUser.getAuthResponse().id_token;
+      console.log("ID Token: ", id_token);
+      console.log("=== Objeto completo: ", googleUser);
     },
     onFailure() {
-      console.log("Google login failure!");
+      console.log("!!! Falha no Google login!");
     },
     primeiroTeste() {
       this.$router.push({

@@ -1,0 +1,15 @@
+ {% comment %} desativa ambiente ive {% endcomment %}
+ deactivate
+{% comment %} cria ambiente env {% endcomment %}
+ python -m venv env
+ {% comment %} ativa ambiente env {% endcomment %}
+ source env/bin/activate
+
+ pip install -r requirements.txt
+
+ django-admin startapp authentication
+
+ pip install djangorestframework-simplejwt
+ pip install drf-yasg
+ ls
+ pip freeze > requirements.txt 

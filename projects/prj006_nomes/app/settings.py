@@ -183,9 +183,6 @@ SIMPLE_JWT = {
 #     ]
 # }
 
-# Custom User Model
-AUTH_USER_MODEL = "agendaApp.CustomUser"
-
 SITE_ID = 1
 
 # python manage.py runserver_plus --cert-file cert.crt 192.168.25.5:8000

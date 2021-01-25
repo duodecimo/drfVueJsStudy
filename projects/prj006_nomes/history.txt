@@ -13,3 +13,6 @@
  pip install drf-yasg
  ls
  pip freeze > requirements.txt 
+
+source envar
+

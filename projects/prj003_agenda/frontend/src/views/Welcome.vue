@@ -41,7 +41,6 @@
         :renderParams="renderParams"
         :onSuccess="onSuccess"
         :onFailure="onFailure"
-<<<<<<< HEAD
         >Acesse Nomes com sua conta no google</GoogleLogin
       > -->
       <GoogleLogin
@@ -52,9 +51,6 @@
         :onFailure="onFailure"
         >Entrar com o Google</GoogleLogin
       >
-=======
-      ></GoogleLogin> -->
->>>>>>> 1b5bc4557e02e5d180c2e38a7ecacd05cbfdc7ef
     </div>
     <template>
       <v-row justify="center">
@@ -95,34 +91,29 @@
       </v-row>
     </template>
     <template>
-      <button v-google-signin-button="clientId" class="google-signin-button">
+      <!-- <button v-google-signin-button="clientId" class="google-signin-button">
         Continue with Google
-      </button>
+      </button> -->
     </template>
   </div>
 </template>
 
 <script>
-//import GoogleLogin from "vue-google-login";
-import GoogleSignInButton from "vue-google-signin-button-directive";
+import GoogleLogin from "vue-google-login";
+// import GoogleSignInButton from "vue-google-signin-button-directive";
 
 export default {
-  directives: {
-    GoogleSignInButton
+  // directives: {
+  //   GoogleSignInButton
+  // },
+  components: {
+    GoogleLogin
   },
   data: () => ({
-<<<<<<< HEAD
     params: {
       client_id:
         "673702991038-cgj9t0h0ns50b4464pbgvb7f8sdc9rtd.apps.googleusercontent.com"
     },
-=======
-    clientId:
-      "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com",
-    //"ZpEu5FurpNSMzlyA8mytGk0XeHXJW3ZKUryqYQTF",
->>>>>>> 1b5bc4557e02e5d180c2e38a7ecacd05cbfdc7ef
-    // only needed if you want to render the button with the google ui
-
     renderParams: {
       width: 250,
       height: 50,
@@ -132,7 +123,6 @@ export default {
     dialog: false
   }),
   methods: {
-<<<<<<< HEAD
     onSuccess(googleUser) {
       // console.log("sucesso google login: ", googleUser);
       // let's try to break googleUdser
@@ -157,14 +147,13 @@ export default {
     },
     onFailure() {
       console.log("!!! Falha no Google login!");
-=======
+    },
     OnGoogleAuthSuccess(idToken) {
       // Receive the idToken and make your magic with the backend
       console.log("Google sucesso: ", idToken);
     },
     OnGoogleAuthFail(error) {
       console.log("ERROR GOOGLE: ", error);
->>>>>>> 1b5bc4557e02e5d180c2e38a7ecacd05cbfdc7ef
     },
     primeiroTeste() {
       this.$router.push({

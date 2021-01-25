@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'authentication',
+    'social_auth',
     "nomes",
 ]
 

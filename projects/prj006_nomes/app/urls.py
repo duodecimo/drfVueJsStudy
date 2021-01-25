@@ -23,7 +23,7 @@ urlpatterns = [
     path('social_auth/',
          include(('social_auth.urls', 'social_auth'),
                  namespace="social_auth")),
-    path('nomes/', include('nomes.urls')),
+    #     path('nomes/', include('nomes.urls')),
     path('',
          schema_view.with_ui('swagger', cache_timeout=0),
          name='schema-swagger-ui'),

@@ -41,6 +41,7 @@
         :renderParams="renderParams"
         :onSuccess="onSuccess"
         :onFailure="onFailure"
+<<<<<<< HEAD
         >Acesse Nomes com sua conta no google</GoogleLogin
       > -->
       <GoogleLogin
@@ -51,6 +52,9 @@
         :onFailure="onFailure"
         >Entrar com o Google</GoogleLogin
       >
+=======
+      ></GoogleLogin> -->
+>>>>>>> 1b5bc4557e02e5d180c2e38a7ecacd05cbfdc7ef
     </div>
     <template>
       <v-row justify="center">
@@ -68,7 +72,7 @@
           <v-card>
             <v-card-title>TERMOS DE USO</v-card-title>
             <v-divider></v-divider>
-            <v-card-text style="height: 600px;">
+            <v-card-text style="height: 600px">
               <iframe
                 src="https://elasticbeanstalk-sa-east-1-968044076875.s3-sa-east-1.amazonaws.com/docs/Termo3.pdf"
                 frameborder="0"
@@ -90,22 +94,35 @@
         </v-dialog>
       </v-row>
     </template>
+    <template>
+      <button v-google-signin-button="clientId" class="google-signin-button">
+        Continue with Google
+      </button>
+    </template>
   </div>
 </template>
 
 <script>
-import GoogleLogin from "vue-google-login";
+//import GoogleLogin from "vue-google-login";
+import GoogleSignInButton from "vue-google-signin-button-directive";
 
 export default {
-  components: {
-    GoogleLogin
+  directives: {
+    GoogleSignInButton
   },
   data: () => ({
+<<<<<<< HEAD
     params: {
       client_id:
         "673702991038-cgj9t0h0ns50b4464pbgvb7f8sdc9rtd.apps.googleusercontent.com"
     },
+=======
+    clientId:
+      "573611286539-37a4hn5vg53bono2kd2d48s0rkotph36.apps.googleusercontent.com",
+    //"ZpEu5FurpNSMzlyA8mytGk0XeHXJW3ZKUryqYQTF",
+>>>>>>> 1b5bc4557e02e5d180c2e38a7ecacd05cbfdc7ef
     // only needed if you want to render the button with the google ui
+
     renderParams: {
       width: 250,
       height: 50,
@@ -115,6 +132,7 @@ export default {
     dialog: false
   }),
   methods: {
+<<<<<<< HEAD
     onSuccess(googleUser) {
       // console.log("sucesso google login: ", googleUser);
       // let's try to break googleUdser
@@ -139,11 +157,21 @@ export default {
     },
     onFailure() {
       console.log("!!! Falha no Google login!");
+=======
+    OnGoogleAuthSuccess(idToken) {
+      // Receive the idToken and make your magic with the backend
+      console.log("Google sucesso: ", idToken);
+    },
+    OnGoogleAuthFail(error) {
+      console.log("ERROR GOOGLE: ", error);
+>>>>>>> 1b5bc4557e02e5d180c2e38a7ecacd05cbfdc7ef
     },
     primeiroTeste() {
       this.$router.push({
         name: "aboutmsg",
-        params: { message: "primeiro teste" }
+        params: {
+          message: "primeiro teste"
+        }
       });
     },
     segundoTeste() {
@@ -151,7 +179,9 @@ export default {
       // router will complain:
       // [vue-router] missing param for named route "about": Expected "message" to be defined
       // but the page is routed, and as prop message has default, everything works
-      this.$router.push({ name: "about" });
+      this.$router.push({
+        name: "about"
+      });
     },
     readFile() {
       window.open(
@@ -161,3 +191,14 @@ export default {
   }
 };
 </script>
+<style>
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>

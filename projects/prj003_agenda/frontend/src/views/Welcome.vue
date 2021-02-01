@@ -15,6 +15,17 @@
     <h5>
       Botões com ações para testar passagem de parâmetros para a página: about
     </h5>
+    <!-- <v-divider />
+    <div>
+      <v-btn
+        class="ml-sm-8"
+        v-google-signin-button="clientId"
+        color="primary"
+        elevation="5"
+        raised
+        >Login com o google</v-btn
+      >
+    </div> -->
     <v-divider />
     <div>
       <v-btn color="primary" elevation="5" raised @click.stop="primeiroTeste"
@@ -35,21 +46,6 @@
         raised
         @click.stop="readFile"
         >PDF Show</v-btn
-      >
-      <!-- <GoogleLogin
-        :params="params"
-        :renderParams="renderParams"
-        :onSuccess="onSuccess"
-        :onFailure="onFailure"
-        >Acesse Nomes com sua conta no google</GoogleLogin
-      > -->
-      <GoogleLogin
-        class="ml-sm-8"
-        color="primary"
-        :params="params"
-        :onSuccess="onSuccess"
-        :onFailure="onFailure"
-        >Entrar com o Google</GoogleLogin
       >
     </div>
     <template>
@@ -91,63 +87,26 @@
       </v-row>
     </template>
     <template>
-      <!-- <button v-google-signin-button="clientId" class="google-signin-button">
+      <button v-google-signin-button="clientId" class="google-signin-button">
         Continue with Google
-      </button> -->
+      </button>
     </template>
   </div>
 </template>
 
 <script>
-import GoogleLogin from "vue-google-login";
-// import GoogleSignInButton from "vue-google-signin-button-directive";
+import GoogleSignInButton from "vue-google-signin-button-directive";
 
 export default {
-  // directives: {
-  //   GoogleSignInButton
-  // },
-  components: {
-    GoogleLogin
+  directives: {
+    GoogleSignInButton
   },
   data: () => ({
-    params: {
-      client_id:
-        "673702991038-cgj9t0h0ns50b4464pbgvb7f8sdc9rtd.apps.googleusercontent.com"
-    },
-    renderParams: {
-      width: 250,
-      height: 50,
-      theme: "dark",
-      longtitle: true
-    },
+    clientId:
+      "1056783513430-aaoe4c0u9c6qai5m25akfl4p285p8knb.apps.googleusercontent.com",
     dialog: false
   }),
   methods: {
-    onSuccess(googleUser) {
-      // console.log("sucesso google login: ", googleUser);
-      // let's try to break googleUdser
-      console.log("Valores recebidos:");
-      // console.log("uc: ", googleUser.uc);
-      console.log("token type: ", googleUser.uc.token_type);
-      console.log("id token: ", googleUser.uc.id_token);
-
-      // This only gets the user information: id, name, imageUrl and email
-      // console.log(
-      //   "   >>> google login profile: ",
-      //   googleUser.getBasicProfile()
-      // );
-      // veja os métodos em: https://developers.google.com/identity/sign-in/web/reference#googleusergetbasicprofile
-      console.log("Nome completo: ", googleUser.getBasicProfile().getName());
-      console.log("e-mail: ", googleUser.getBasicProfile().getEmail());
-      console.log("avatar url: ", googleUser.getBasicProfile().vI);
-      // The ID token you need to pass to your backend:
-      var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: ", id_token);
-      console.log("=== Objeto completo: ", googleUser);
-    },
-    onFailure() {
-      console.log("!!! Falha no Google login!");
-    },
     OnGoogleAuthSuccess(idToken) {
       // Receive the idToken and make your magic with the backend
       console.log("Google sucesso: ", idToken);

@@ -1,0 +1,129 @@
+Prototyping with Vue and json-server
+
+by Eric Duvon
+January 29, 2021
+JAVASCRIPT, WEB DEVELOPMENT
+
+
+Oftentimes, when I’ve been focused on building out the front end for an application, I’ve gotten hung up debugging API issues, changing my mind about the data structure, or slowing down to create necessary data migrations.  There must be an easier way to do this, I’ve thought.
+
+One of the things I discovered when first introduced to Vue.js was the use of a fake REST API tool called json-server.  At first it was like some form of black magic that I had never known existed.  I thought to myself, “How long has this been around, and how much time could I have saved if I knew about it?”
+
+Don’t make the same mistake I did.  There is an easier way, and in this post I’ll demonstrate how to utilize a fake REST API to accelerate your prototyping and development workflow using Vue, axios, and json-server.
+
+Get Started
+To get started, install the packages you’ll need with npm:
+
+# Install Vue CLI tools
+npm install -g @vue/cli @vue/cli-service-global
+# Install fake REST API
+npm install -g json-server
+# Install HTTP client
+npm install axios
+
+Add a local database by creating a db.json file with some data.  In this case let’s add some books:
+
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "The Brothers Karamazov",
+      "author": "Fyodor Dostoevsky"
+    },
+    {
+      "id": 2,
+      "title": "Infinite Jest",
+      "author": "David Foster Wallace"
+    },
+    {
+      "id": 3,
+      "title": "Suttree",
+      "author": "Cormac McCarthy"
+    }
+  ]
+}
+
+This provides us some sample data to work with as we build out our Vue component.  If you change your mind about your data structure later, it’s as trivial as updating a json file.
+
+To get your json-server up and running:
+
+json-server --watch db.json
+
+Now, if you visit http://localhost:3000/books, you should see the book list json output in your browser.
+
+Create Vue Component
+Let’s add a Vue component to interact with our fake API.
+
+Create a file named Books.vue which will display a list of books and has a form for adding new books:
+
+<template>
+  <div id="app">
+    <h1>Books</h1>
+    <input type="text" v-model="title" @keyup.enter="addBook" placeholder="title">
+    <input type="text" v-model="author" @keyup.enter="addBook" placeholder="author">
+    <ul>
+      <li v-for="book of books" :key="book.id">
+        {{book.title}} by {{book.author}}
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
+// import axios from 'axios';
+export default {
+  name: 'app',
+  data() {
+    return {
+      books: [],
+      title: '',
+      author: ''
+    }
+  },
+}
+</script>
+
+Using Vue’s rapid prototyping capabilities, we can view a single component in the browser simply by running:
+
+vue serve Books.vue
+
+No further setup is required!  Seriously.
+
+For now, we have a form that doesn’t submit any data, and our list of books doesn’t appear yet.  Let’s change that by making some axios calls to interact with our fake API.
+
+Get Data from API
+To pull the book list into our component we’ll make a GET request, which will fire once our component is created. Uncomment the axios import statement, and add the following after the data:
+
+async created() {
+    await axios.get(`http://localhost:3000/books`)
+    .then(response => {
+      this.books = response.data
+  })
+  .catch(error => {
+    console.log('There was an error:', error.response)
+  })
+},
+
+Post Data to API
+You can also make POST requests to this endpoint to add new json records (books) to the file.  Add the following after the created hook:
+
+methods: {
+  async addBook() {
+    await axios.post('http://localhost:3000/books',
+    { title: this.title, author: this.author })
+    .then(response => {
+      this.books = [...this.books, response.data]
+      this.title = ''
+      this.author = ''
+    })
+  .catch(error => {
+    console.log('There was an error:', error.response)
+   })
+  }
+}
+
+After adding some books, you should see them appear below the form in your browser.  Open up your db.json file and you can see the new books listed there (with auto-assigned ID values!).
+
+Conclusion
+Based on what I’ve shown, you can probably guess how PUT and DELETE requests will work so I won’t demonstrate those here.  If you’re curious, there are additional route options such as filtering, pagination, and sorting, which you can read about in the json-server docs
+
+In this post I’ve demonstrated a fast and efficient way to prototype a Vue component while avoiding the full setup of a backend API and full-fledged Vue application.  This method is perfect for experimenting with an idea on the fly or demo-ing a potential feature to your stakeholders without much up-front time investment.  Though just an introduction, hopefully I’ve convinced you that Vue, axios, and json-server can greatly speed up your development and prototyping process.

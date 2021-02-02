@@ -15,7 +15,7 @@
     <h5>
       Botões com ações para testar passagem de parâmetros para a página: about
     </h5>
-    <!-- <v-divider />
+    <v-divider />
     <div>
       <v-btn
         class="ml-sm-8"
@@ -25,7 +25,7 @@
         raised
         >Login com o google</v-btn
       >
-    </div> -->
+    </div>
     <v-divider />
     <div>
       <v-btn color="primary" elevation="5" raised @click.stop="primeiroTeste"
@@ -86,11 +86,11 @@
         </v-dialog>
       </v-row>
     </template>
-    <template>
-      <button v-google-signin-button="clientId" class="google-signin-button">
-        Continue with Google
-      </button>
-    </template>
+    <!-- <template> -->
+    <!-- <button v-google-signin-button="clientId" class="google-signin-button"> -->
+    <!-- Continue with Google -->
+    <!-- </button> -->
+    <!-- </template> -->
   </div>
 </template>
 

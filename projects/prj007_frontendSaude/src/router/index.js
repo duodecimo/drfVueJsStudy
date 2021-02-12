@@ -12,7 +12,7 @@ const routes = [
     path: "/",
     name: "Welcome",
     component: Welcome,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: false }
   },
   {
     path: "/about:message",
@@ -83,12 +83,12 @@ router.beforeEach(function(to, from, next) {
   // console.log("Testando store alo: ", store.getters.alo);
   console.log("   to   name: ", to.name, " path: ", to.path);
   console.log("   from name: ", from.name, " path: ", from.path);
-  console.log("Verificando authentication: ", store.getters.authentication);
+  console.log("Verificando tokens: ", store.getters.tokens);
   console.log("verificando to meta requiresAuth: ", to.meta.requiresAuth);
-  if (to.meta.requiresAuth && !store.getters.authentication) {
+  if (to.meta.requiresAuth && !store.getters.tokens) {
     console.log("Navigation guard > Forçando login");
     next("/login");
-  } else if (to.meta.requiresUnAuth && store.getters.authentication) {
+  } else if (to.meta.requiresUnAuth && store.getters.tokens) {
     console.log("Navigation guard > Impedindo login, usuário já está logado.");
     next("/");
   } else {

@@ -1,0 +1,215 @@
+
+[
+	{
+		"name": "Marcela Sandra Sales",
+		"email": "marcelasandrasales..marcelasandrasales@fosjc.unesp.br",
+		"password": "0oHWEwIHwz",
+		"gender": "F",
+		"nickname":"Marcela"
+		},
+	{
+		"name": "Marcos Ruan da Mata",
+		"email": "marcosruandamata__marcosruandamata@vemter.com.br",
+		"password": "yRxBZlmCGl",
+		"gender": "M",
+		"nickname":"Marcos"
+		},
+	{
+		"name": "Raimunda Sarah Porto",
+		"email": "rraimundasarahporto@belbrindes.com",
+		"password": "AMjirsXwJZ",
+		"gender": "F",
+		"nickname":"Raimunda"
+		},
+	{
+		"name": "Cauê Paulo Severino Nogueira",
+		"email": "ccauepauloseverinonogueira@dpi.ig.br",
+		"password": "9yzGrPOaT3",
+		"gender": "M",
+		"nickname":"Cauê"
+		},
+	{
+		"name": "Vicente Luan Lima",
+		"email": "vicenteluanlima__vicenteluanlima@cbb.com.br",
+		"password": "YuPBGM2Hh0",
+		"gender": "M",
+		"nickname":"Vicente"
+		},
+	{
+		"name": "Bruna Rebeca Olivia Moreira",
+		"email": "brunarebecaoliviamoreira..brunarebecaoliviamoreira@lidertel.com.br",
+		"password": "WXoRrzcb6d",
+		"gender": "F",
+		"nickname":"Bruna"
+		},
+	{
+		"name": "Vinicius Nicolas Fogaça",
+		"email": "viniciusnicolasfogaca-99@dr.com",
+		"password": "IRyTWKtpH5",
+		"gender": "M",
+		"nickname":"Vinicius"
+		},
+	{
+		"name": "Betina Eliane Daiane Corte Real",
+		"email": "betinaelianedaianecortereal__betinaelianedaianecortereal@wsiconsultores.com.br",
+		"password": "lng8Jjh4r5",
+		"gender": "F",
+		"nickname":"Betina"
+		},
+	{
+		"name": "Sônia Milena Lívia Pereira",
+		"email": "soniamilenaliviapereira-90@abbott.com",
+		"password": "K5lps23uuH",
+		"gender": "F",
+		"nickname":"Sônia"
+		},
+	{
+		"name": "Nelson Calebe Iago Rodrigues",
+		"email": "nnelsoncalebeiagorodrigues@aspadvocacia.com",
+		"password": "hrsyQtpgda",
+		"gender": "M",
+		"nickname":"Nelson"
+		},
+	{
+		"name": "Raul Thales Henrique Caldeira",
+		"email": "raulthaleshenriquecaldeira__raulthaleshenriquecaldeira@gvmail.br",
+		"password": "IbLCGsw9kI",
+		"gender": "M",
+		"nickname":"Raul"
+		},
+	{
+		"name": "Elaine Laura Viana",
+		"email": "elainelauraviana__elainelauraviana@embraer.com.br",
+		"password": "SwD33Y5k0G",
+		"gender": "F",
+		"nickname":"Elaine"
+		},
+	{
+		"name": "Fernanda Sabrina Silvana Ferreira",
+		"email": "fernandasabrinasilvanaferreira_@hp.com",
+		"password": "2g8Pmp7qp9",
+		"gender": "F",
+		"nickname":"Fernanda"
+		},
+	{
+		"name": "Caio Nelson Matheus Carvalho",
+		"email": "ccaionelsonmatheuscarvalho@antunez.com.br",
+		"password": "QFD5wXEeCT",
+		"gender": "M",
+		"nickname":"Caio"
+		},
+	{
+		"name": "Marina Sophie da Rocha",
+		"email": "marinasophiedarocha-71@br.ibn.com",
+		"password": "T7t4F3onWB",
+		"gender": "F",
+		"nickname":"Marina"
+		},
+	{
+		"name": "Vitor Benedito Corte Real",
+		"email": "vitorbeneditocortereal-94@yahoo.it",
+		"password": "41bCkkfQf3",
+		"gender": "M",
+		"nickname":"Vitor"
+		},
+	{
+		"name": "Stella Isabelle Brenda Dias",
+		"email": "stellaisabellebrendadias_@metroquali.com.br",
+		"password": "atoBX2S8Zi",
+		"gender": "F",
+		"nickname":"Stella"
+		},
+	{
+		"name": "Igor Miguel da Rocha",
+		"email": "igormigueldarocha__igormigueldarocha@boll.com.br",
+		"password": "7LEWJKSDyT",
+		"gender": "M",
+		"nickname":"Igor"
+		},
+	{
+		"name": "Sônia Sophia Isabella Cavalcanti",
+		"email": "soniasophiaisabellacavalcanti__soniasophiaisabellacavalcanti@embraer.com",
+		"password": "Gj3tXJXRaw",
+		"gender": "F",
+		"nickname":"Isabella"
+		},
+	{
+		"name": "Kevin Pedro Farias",
+		"email": "kkevinpedrofarias@portalpublicidade.com.br",
+		"password": "pMWiNq2ZB6",
+		"gender": "M",
+		"nickname":"Kevin"
+		},
+	{
+		"name": "Renato Benedito Bernardes",
+		"email": "renatobeneditobernardes-70@statusseguros.com.br",
+		"password": "dYmgEkYM2R",
+		"gender": "M",
+		"nickname":"Renato"
+		},
+	{
+		"name": "Isaac Raimundo Enzo da Costa",
+		"email": "isaacraimundoenzodacosta__isaacraimundoenzodacosta@fosjc.unesp.br",
+		"password": "NjIJoRoAw3",
+		"gender": "M",
+		"nickname":"Isaac"
+		},
+	{
+		"name": "Clara Alice Silva",
+		"email": "claraalicesilva__claraalicesilva@obrativaengenharia.com.br",
+		"password": "eyZnuqU6ES",
+		"gender": "F",
+		"nickname":"Clara"
+		},
+	{
+		"name": "Isabela Tânia Marli Pinto",
+		"email": "isabelataniamarlipinto-76@grupoblackout.com.br",
+		"password": "TyO6Remcbi",
+		"gender": "F",
+		"nickname":"Tânia"
+		},
+	{
+		"name": "Fátima Tânia Campos",
+		"email": "fatimataniacampos__fatimataniacampos@umbernardo.com.br",
+		"password": "SMmePCehDR",
+		"gender": "F",
+		"nickname":"Fátima"
+		},
+	{
+		"name": "Luiz Francisco Figueiredo",
+		"email": "luizfranciscofigueiredo_@mmarques.com",
+		"password": "XagGiISdP0",
+		"gender": "M",
+		"nickname":"Luiz"
+		},
+	{
+		"name": "Elisa Benedita Sophia da Cunha",
+		"email": "elisabeneditasophiadacunha_@terra.com.br",
+		"password": "BR3lgbCM6e",
+		"gender": "F",
+		"nickname":"Elisa"
+		},
+	{
+		"name": "Bruno Gabriel Pinto",
+		"email": "brunogabrielpinto_@zepto.com.br",
+		"password": "ZPPBEHy8XU",
+		"gender": "M",
+		"nickname":"Bruno"
+		},
+	{
+		"name": "Fátima Valentina Nogueira",
+		"email": "fatimavalentinanogueira_@tilapiareal.com.br",
+		"password": "d8cPci2FqX",
+		"gender": "F",
+		"nickname":"Valentina"
+		},
+	{
+		"name": "Louise Adriana Rocha",
+		"email": "llouiseadrianarocha@fernandaleal.com.br",
+		"password": "0acXNwBZ9x",
+		"gender": "F",
+		"nickname":"Louise"
+
+		}
+]
+

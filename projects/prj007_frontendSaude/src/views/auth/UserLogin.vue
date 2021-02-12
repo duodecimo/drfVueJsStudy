@@ -1,7 +1,7 @@
 <template>
   <section>
     <v-container>
-      <v-card elevation="10" class="mx-auto my-12" this. :max-width="width">
+      <v-card elevation="10" class="mx-auto my-12" :max-width="width">
         <!-- <div id="login-header">Login</div> -->
         <v-card-text>
           <v-row class="text-center">
@@ -13,14 +13,14 @@
                 elevation="5"
                 raised
                 block
-                >Faça login com o google</v-btn
+                >Entre com o google</v-btn
               >
             </v-col></v-row
           >
           <v-row class="text-center">
             <v-col cols="12">
               <v-btn class="ml-sm-8" color="primary" elevation="5" raised block
-                >Faça login com o facebook</v-btn
+                >Entre com o facebook</v-btn
               >
             </v-col></v-row
           >
@@ -33,7 +33,7 @@
                 raised
                 block
                 @click="dialog = true"
-                >Faça login com seu e-mail</v-btn
+                >Entre com seus dados</v-btn
               >
             </v-col></v-row
           >
@@ -43,11 +43,13 @@
     <v-row justify="center">
       <v-dialog v-model="dialog" persistent max-width="90%">
         <div class="pa-xs-8">
-          <v-card height="60vh">
-            <v-card-title>Preencha seus dados</v-card-title>
+          <v-card height="70vh">
+            <v-card-title v-if="registered">Dados registrados</v-card-title>
+            <v-card-title v-else>Dados para o registro</v-card-title>
             <v-form ref="form" @submit.prevent v-model="valid">
               <v-col cols="10">
                 <v-text-field
+                  v-if="!registered"
                   v-model="twcp_user_name"
                   prepend-icon="mdi-account"
                   :counter="20"
@@ -93,6 +95,12 @@
               <v-btn color="success" class="mr-4" @click="dialog = false" small>
                 Cancelar
               </v-btn>
+              <v-col cols="10">
+                <v-switch
+                  v-model="registered"
+                  label="Já sou registrado"
+                ></v-switch>
+              </v-col>
             </v-form>
           </v-card>
         </div>
@@ -102,6 +110,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import GoogleSignInButton from "vue-google-signin-button-directive";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
@@ -134,6 +143,7 @@ export default {
       "1056783513430-aaoe4c0u9c6qai5m25akfl4p285p8knb.apps.googleusercontent.com",
     dialog: false,
     valid: true,
+    registered: true,
     nameRules: [
       v => !!v || "obrigatório",
       v => (v && v.length >= 4) || "O nome deve ter pelo menos 4 caracteres"
@@ -161,10 +171,16 @@ export default {
     pwShow: false
   }),
   methods: {
-    ...mapActions(["set_user_name", "set_authentication"]),
+    ...mapActions(["set_user_name", "set_authentication", "set_tokens"]),
     OnGoogleAuthSuccess(idToken) {
       // Receive the idToken and make your magic with the backend
+      // https://pratudo-backend.herokuapp.com/
       console.log("Google sucesso: ", idToken);
+      axios
+        .post("https://pratudo-backend.herokuapp.com/social/google", {
+          auth_token: idToken
+        })
+        .then(response => this.set_tokens(response.data));
     },
     OnGoogleAuthFail(error) {
       console.log("ERROR GOOGLE: ", error);
@@ -180,36 +196,44 @@ export default {
     },
     login() {
       console.log("login");
-      this.$http
-        .post(
-          // "http://localhost:8000/rest-auth/login/",
-          // "https://192.168.25.5:8000/rest-auth/login/",
-          "rest-auth/login/",
-          {
-            username: this.user_name,
+      if (this.registered) {
+        console.log(
+          "dados a enviar: email: ",
+          this.userEmail,
+          " senha: ",
+          this.userPassword
+        );
+        axios
+          .post("https://pratudo-backend.herokuapp.com/auth/login/", {
+            // .post("http://localhost:5000/auth/login/", {
             email: this.userEmail,
             password: this.userPassword
-          }
-        )
-        .then(
-          response => {
-            console.log("response: ", response);
-            console.log("data key: ", response.data.key);
-            console.log("data key: ", `Token response.data.key`);
-            this.set_authentication("Token " + response.data.key).then(
-              console.log(
-                "UserLogin - login() - authentication: ",
-                this.authentication
-              ),
-              this.$router.push({ path: "/" })
-            );
-            // a55dd1c646dd194e33858836a190391a9ea55474
-          },
-          err => {
-            console.log("Em UserLogin - login() - Err status: ", err.status);
-            alert("Em UserLogin - login() - Err status: " + err);
-          }
-        );
+          })
+          .then(response => {
+            this.set_tokens(response.data.tokens);
+            this.$router.push({ path: "/" });
+          });
+        err => {
+          console.log("Em UserLogin - login() - Err status: ", err.status);
+          alert("Em UserLogin - login() - Erro: " + err.detail);
+        };
+      } else {
+        axios
+          // .post("https://pratudo-backend.herokuapp.com/auth/register/", {
+          .post("http://localhost:5000/auth/register/", {
+            email: this.userEmail,
+            username: this.twcp_user_name,
+            password: this.userPassword
+          })
+          .then(response => {
+            this.set_tokens(response.data.tokens);
+            this.$router.push({ path: "/" });
+          });
+        err => {
+          console.log("Em UserLogin - login() - Err status: ", err.status);
+          alert("Em UserLogin - login() - Erro: " + err.detail);
+        };
+      }
     },
     logout() {
       console.log("logout");

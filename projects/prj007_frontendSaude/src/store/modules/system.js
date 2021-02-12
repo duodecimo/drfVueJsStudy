@@ -3,7 +3,8 @@ const state = {
   user_name: null,
   authentication: null,
   show_logout: false,
-  active_meeting: false
+  active_meeting: false,
+  tokens: null
 };
 
 const mutations = {
@@ -14,7 +15,9 @@ const mutations = {
   SET_ACTIVE_MEETING: (state, value) =>
     value ? (state.active_meeting = value) : (state.active_meeting = null),
   SET_SHOW_LOGOUT: (state, value) =>
-    value ? (state.show_logout = value) : (state.show_logout = false)
+    value ? (state.show_logout = value) : (state.show_logout = false),
+  SET_TOKENS: (state, value) =>
+    value ? (state.tokens = value) : (state.tokens = null)
 };
 
 const getters = {
@@ -32,6 +35,9 @@ const getters = {
   },
   show_logout(state) {
     return state.show_logout;
+  },
+  tokens(state) {
+    return state.tokens;
   }
 };
 
@@ -51,6 +57,10 @@ const actions = {
   set_show_logout(context, payload) {
     console.log("STORE - system.js - set_show_logout - payload: ", payload);
     context.commit("SET_SHOW_LOGOUT", payload);
+  },
+  set_tokens(context, payload) {
+    console.log("STORE - system.js - set_tokens - payload: ", payload);
+    context.commit("SET_TOKENS", payload);
   }
 };
 

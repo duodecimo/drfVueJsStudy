@@ -1,0 +1,3 @@
+RE example for text editor:
+\"(mae|pai|cep|endereco|numero|bairro|cidade|telefone\_fixo|celular).*\n\t*
+

@@ -4,149 +4,148 @@
       :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-4']"
       class="font-weight-black"
     >
-      AGENDA
+      PraTudo SAÚDE
     </span>
     <p />
-    <span>
-      A agenda é uma demonstração e um campo de testes para funcionalidades
-      vueJs/vuetify, utilizando router e vuex.
+    <span class="text-subtitle-2">
+      Sua consulta de saúde do jeito que você precisa.
     </span>
     <v-divider />
-    <h5>
-      Botões com ações para testar passagem de parâmetros para a página: about
-    </h5>
-    <v-divider />
+    <v-card class="mx-auto" max-width="300" tile v-if="entities">
+      <v-list dense>
+        <v-subheader>ENTIDADES</v-subheader>
+        <v-list-item-group v-model="selectedEntity" color="primary">
+          <v-list-item v-for="(entity, i) in entities.results" :key="i">
+            <v-list-item-content>
+              <v-list-item-title v-text="entity.name"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
     <div>
-      <v-btn
-        class="ml-sm-8"
-        v-google-signin-button="clientId"
-        color="primary"
-        elevation="5"
-        raised
-        >Login com o google</v-btn
-      >
-    </div>
-    <v-divider />
-    <div>
-      <v-btn color="primary" elevation="5" raised @click.stop="primeiroTeste"
-        >Primeiro teste</v-btn
-      >
-      <v-btn
-        class="ml-sm-8"
-        color="primary"
-        elevation="5"
-        raised
-        @click.stop="segundoTeste"
-        >Segundo teste</v-btn
-      >
-      <v-btn
-        class="ml-sm-8"
-        color="primary"
-        elevation="5"
-        raised
-        @click.stop="readFile"
-        >PDF Show</v-btn
-      >
-    </div>
-    <template>
-      <v-row justify="center">
-        <v-dialog
-          v-model="dialog"
-          scrollable
-          max-width="1200px"
-          :fullscreen="$vuetify.breakpoint.smAndDown"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark v-bind="attrs" v-on="on">
-              Ler Termos
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>TERMOS DE USO</v-card-title>
-            <v-divider></v-divider>
-            <v-card-text style="height: 600px">
-              <iframe
-                src="https://elasticbeanstalk-sa-east-1-968044076875.s3-sa-east-1.amazonaws.com/docs/Termo3.pdf"
-                frameborder="0"
-                width="100%"
-                height="600px"
-              />
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="green darken-1" text @click="dialog = false">
-                Disagree
-              </v-btn>
-              <v-btn color="blue darken-1" text @click="dialog = false">
-                Agree
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+      <v-row class="mt-4 ma-4">
+        <v-col>
+          <!-- insert user photo -->
+          <v-img
+            :src="photoSrc"
+            max-height="150"
+            max_width="110"
+            contain
+          ></v-img>
+        </v-col>
+        <v-col>
+          <v-file-input
+            :rules="avatarRules"
+            accept="image/png, image/jpeg"
+            placeholder="Escolha um avatar"
+            prepend-icon="mdi-account-box"
+            label="Avatar"
+            show-size
+            filled
+            v-model="avatarFile"
+            @change="setPhotoSrc()"
+          ></v-file-input>
+        </v-col>
       </v-row>
-    </template>
-    <!-- <template> -->
-    <!-- <button v-google-signin-button="clientId" class="google-signin-button"> -->
-    <!-- Continue with Google -->
-    <!-- </button> -->
-    <!-- </template> -->
+    </div>
+    <div>
+      <app-takePicture
+        user="TestUser"
+        @changeUserPhoto="setPhotoSrcFromCamera($event)"
+      ></app-takePicture>
+    </div>
   </div>
 </template>
 
 <script>
-import GoogleSignInButton from "vue-google-signin-button-directive";
+import axios from "axios";
+import takePicture from "../multimedia/takePicture.vue";
 
 export default {
-  directives: {
-    GoogleSignInButton
-  },
   data: () => ({
-    clientId:
-      "1056783513430-aaoe4c0u9c6qai5m25akfl4p285p8knb.apps.googleusercontent.com",
-    dialog: false
+    filter: null,
+    entities: null,
+    selectedEntity: null,
+    avatarRules: [
+      value =>
+        !value ||
+        (value.size > 3000 && value.size < 50000) ||
+        "Avatar size should be between 3k and 50k."
+    ],
+    avatarFile: null,
+    photoSrc: null,
+    photoFile: null
   }),
+  components: {
+    "app-takePicture": takePicture
+  },
   methods: {
-    OnGoogleAuthSuccess(idToken) {
-      // Receive the idToken and make your magic with the backend
-      console.log("Google sucesso: ", idToken);
+    setPhotoSrc() {
+      console.log("---> setting photoSrc.");
+      if (this.avatarFile) {
+        const reader = new FileReader();
+        reader.addEventListener("load", e => {
+          this.photoSrc = e.target.result;
+          this.photoFile = this.avatarFile;
+        });
+        reader.addEventListener("error", e => {
+          this.photoSrc = this.getPhotoURL();
+          this.photoFile = null;
+          console.log("Error: ", e);
+        });
+        reader.readAsDataURL(this.avatarFile);
+      } else {
+        this.photoSrc = this.getPhotoURL();
+        this.photoFile = null;
+      }
+      // this.checkPhotoSrc();
     },
-    OnGoogleAuthFail(error) {
-      console.log("ERROR GOOGLE: ", error);
+    setPhotoSrcFromCamera(event) {
+      var photoFile = event.get("file");
+      console.log("---> setting photoSrc from taken picture.");
+      if (photoFile) {
+        const reader = new FileReader();
+        reader.addEventListener("load", e => {
+          this.photoSrc = e.target.result;
+          this.photoFile = photoFile;
+          this.avatarFile = null;
+        });
+        reader.addEventListener("error", e => {
+          this.photoSrc = this.getPhotoURL();
+          this.photoFile = null;
+          this.avatarFile = null;
+          console.log("Error: ", e);
+        });
+        reader.readAsDataURL(photoFile);
+      } else {
+        this.photoSrc = this.getPhotoURL();
+        this.photoFile = null;
+        this.avatarFile = null;
+      }
     },
-    primeiroTeste() {
-      this.$router.push({
-        name: "aboutmsg",
-        params: {
-          message: "primeiro teste"
-        }
-      });
+    getPhotoURL() {
+      // return window.location.origin + "/userPhoto/" + this.pluser.id;
+      return window.location.origin + "/userPhoto/" + "1";
     },
-    segundoTeste() {
-      // uppon pushing without parameters,
-      // router will complain:
-      // [vue-router] missing param for named route "about": Expected "message" to be defined
-      // but the page is routed, and as prop message has default, everything works
-      this.$router.push({
-        name: "about"
-      });
-    },
-    readFile() {
-      window.open(
-        "https://elasticbeanstalk-sa-east-1-968044076875.s3-sa-east-1.amazonaws.com/docs/Termo3.pdf"
-      );
+    updateAvatar() {
+      let payload = new FormData();
+      payload.append("photoFile", this.photoFile);
     }
+  },
+  mounted() {
+    axios
+      .get("https://pratudo-backend.herokuapp.com/api/entities/")
+      // .post("http://localhost:5000/api/entities/")
+      .then(response => {
+        this.entities = response.data;
+        console.log("Obtidas ", this.entities.count, " entidades");
+        console.log("response data; ", response.data);
+      });
+    err => {
+      console.log("Em UserLogin - login() - Err status: ", err.status);
+      alert("Em UserLogin - login() - Erro: " + err.detail);
+    };
   }
 };
 </script>
-<style>
-.google-signin-button {
-  color: white;
-  background-color: red;
-  height: 50px;
-  font-size: 16px;
-  border-radius: 10px;
-  padding: 10px 20px 25px 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-</style>

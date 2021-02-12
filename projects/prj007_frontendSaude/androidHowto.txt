@@ -1,0 +1,56 @@
+npm install @capacitor/core @capacitor/cli
+npm run build
+npx cap init PratudoSaudeApp --web-dir=dist
+{% comment %}
+? App Package ID (in Java package format, no dashes) com.example.app
+? Which npm client would you like to use? npm
+✔ Initializing Capacitor project in /extra2/drfVueJsStudy/projects/prj007_frontendSaude in 2.07ms 
+
+🎉   Your Capacitor project is ready to go!  🎉
+
+Add platforms using "npx cap add":
+
+  npx cap add android
+  npx cap add ios
+  npx cap add electron
+
+Follow the Developer Workflow guide to get building:
+https://capacitorjs.com/docs/basics/workflow
+
+duo@asimov:/extra2/drfVueJsStudy/projects/prj007_frontendSaude$ npx cap add android
+✔ Installing android dependencies in 7.46s
+✔ Adding native android project in: /extra2/drfVueJsStudy/projects/prj007_frontendSaude/android in 92.95ms
+✔ Syncing Gradle in 266.58μp
+✔ add in 7.55s
+✔ Copying web assets from dist to android/app/src/main/assets/public in 15.68ms
+✔ Copying native bridge in 536.24μp
+✔ Copying capacitor.config.json in 619.04μp
+✔ copy in 30.14ms
+✔ Updating Android plugins in 3.30ms
+  Found 0 Capacitor plugins for android:
+✔ update android in 15.92ms
+
+Now you can run npx cap open android to launch Android Studio
+
+{% endcomment %}
+
+npx cap open android
+
+{% comment %} 
+[info] Opening Android project at /extra2/drfVueJsStudy/projects/prj007_frontendSaude/android
+[error] Unable to launch Android Studio. You must configure "linuxAndroidStudioPath" in your capacitor.config.json to point to the location of studio.sh, using JavaScript-escaped paths:
+Example:
+{
+  "linuxAndroidStudioPath": "/usr/local/android-studio/bin/studio.sh"
+} 
+
+feito!
+
+{% endcomment %}
+
+npx cap open android
+
+{% comment %} 
+[info] Opening Android project at /extra2/drfVueJsStudy/projects/prj007_frontendSaude/android
+{% endcomment %}
+

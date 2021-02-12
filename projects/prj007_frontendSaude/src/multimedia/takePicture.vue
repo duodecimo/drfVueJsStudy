@@ -145,19 +145,6 @@ export default {
       await this.$emit("changeUserPhoto", data);
       await this.toggleCamera();
     }
-    /*
-
-        var config = {
-        headers: {
-            Authorization: ...,
-            "Content-Type": "multipart/form-data"
-        }
-        };
-        axios
-        .post("/...", payload, config)
-        .then(
-
-    */
   }
 };
 </script>

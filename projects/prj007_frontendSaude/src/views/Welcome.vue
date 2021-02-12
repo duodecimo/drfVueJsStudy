@@ -132,6 +132,19 @@ export default {
       let payload = new FormData();
       payload.append("photoFile", this.photoFile);
     }
+    /* base para salvar a foto ...
+
+        var config = {
+        headers: {
+            Authorization: ...,
+            "Content-Type": "multipart/form-data"
+        }
+        };
+        axios
+        .post("/...", payload, config)
+        .then(
+
+    */
   },
   mounted() {
     axios

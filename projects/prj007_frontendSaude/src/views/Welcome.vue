@@ -11,13 +11,13 @@
       Sua consulta de saúde do jeito que você precisa.
     </span>
     <v-divider />
-    <v-card class="mx-auto" max-width="300" tile v-if="entities">
+    <v-card class="mx-auto" max-width="300" tile v-if="entidades">
       <v-list dense>
         <v-subheader>ENTIDADES</v-subheader>
         <v-list-item-group v-model="selectedEntity" color="primary">
-          <v-list-item v-for="(entity, i) in entities.results" :key="i">
+          <v-list-item v-for="(entidade, i) in entidades.results" :key="i">
             <v-list-item-content>
-              <v-list-item-title v-text="entity.name"></v-list-item-title>
+              <v-list-item-title v-text="entidade.nome"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -65,7 +65,7 @@ import takePicture from "../multimedia/takePicture.vue";
 export default {
   data: () => ({
     filter: null,
-    entities: null,
+    entidades: null,
     selectedEntity: null,
     avatarRules: [
       value =>
@@ -126,7 +126,8 @@ export default {
     },
     getPhotoURL() {
       // return window.location.origin + "/userPhoto/" + this.pluser.id;
-      return window.location.origin + "/userPhoto/" + "1";
+      // return window.location.origin + "/userPhoto/" + "1";
+      return "https://pratudo-backend.herokuapp.com/logo/";
     },
     updateAvatar() {
       let payload = new FormData();
@@ -147,12 +148,14 @@ export default {
     */
   },
   mounted() {
+    this.photoSrc = this.getPhotoURL();
+
     axios
-      .get("https://pratudo-backend.herokuapp.com/api/entities/")
-      // .post("http://localhost:5000/api/entities/")
+      .get("https://pratudo-backend.herokuapp.com/api/entidades/")
+      // .post("http://localhost:5000/api/entidades/")
       .then(response => {
-        this.entities = response.data;
-        console.log("Obtidas ", this.entities.count, " entidades");
+        this.entidades = response.data;
+        console.log("Obtidas ", this.entidades.count, " entidades");
         console.log("response data; ", response.data);
       });
     err => {

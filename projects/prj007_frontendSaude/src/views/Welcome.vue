@@ -55,6 +55,11 @@
         @changeUserPhoto="setPhotoSrcFromCamera($event)"
       ></app-takePicture>
     </div>
+    <div>
+      <v-btn @click="sobrescreverProfissional()"
+        >Sobrescrever Profissional</v-btn
+      >
+    </div>
   </div>
 </template>
 
@@ -81,6 +86,22 @@ export default {
     "app-takePicture": takePicture
   },
   methods: {
+    sobrescreverProfissional() {
+      console.log("Em sobrescrever profussional");
+      var payload = new FormData();
+      payload.append("image_field", this.photoFile);
+      payload.append("cpf", "01234567890");
+      console.log("Avatar nome: ", payload.image_field);
+      var config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      axios
+        .patch("http://localhost:5000/api/profissionais/1/", payload, config)
+        .then(response => console.log("Resposta recebida: ", response))
+        .catch(err => console.log("Erro: ", err));
+    },
     setPhotoSrc() {
       console.log("---> setting photoSrc.");
       if (this.avatarFile) {
@@ -127,32 +148,20 @@ export default {
     getPhotoURL() {
       // return window.location.origin + "/userPhoto/" + this.pluser.id;
       // return window.location.origin + "/userPhoto/" + "1";
-      return "https://pratudo-backend.herokuapp.com/logo/";
+      // return "https://pratudo-backend.herokuapp.com/logo/";
+      return "http://localhost:5000/logo/1/";
     },
     updateAvatar() {
       let payload = new FormData();
       payload.append("photoFile", this.photoFile);
     }
-    /* base para salvar a foto ...
-
-        var config = {
-        headers: {
-            Authorization: ...,
-            "Content-Type": "multipart/form-data"
-        }
-        };
-        axios
-        .post("/...", payload, config)
-        .then(
-
-    */
   },
   mounted() {
     this.photoSrc = this.getPhotoURL();
 
     axios
-      .get("https://pratudo-backend.herokuapp.com/api/entidades/")
-      // .post("http://localhost:5000/api/entidades/")
+      // .get("https://pratudo-backend.herokuapp.com/api/entidades/")
+      .get("http://localhost:5000/api/entidades/")
       .then(response => {
         this.entidades = response.data;
         console.log("Obtidas ", this.entidades.count, " entidades");

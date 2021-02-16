@@ -72,8 +72,8 @@
                 Mostrando avatar
               </v-card-title>
               <v-card-text>
-                <!-- <v-img src="avatarMostar"></v-img> -->
-                <v-img src="http://localhost:5000/logo/1/"></v-img>
+                <v-img :src="avatarMostar"></v-img>
+                <!-- <v-img src="http://localhost:5000/logo/1/"></v-img> -->
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>

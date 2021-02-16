@@ -60,6 +60,32 @@
         >Sobrescrever Profissional</v-btn
       >
     </div>
+    <div>
+      <v-btn @click="mostrar_avatar(1)">Mostrar avatar</v-btn>
+    </div>
+    <div>
+      <template>
+        <v-row justify="center">
+          <v-dialog v-model="dialog" width="600px">
+            <v-card>
+              <v-card-title>
+                Mostrando avatar
+              </v-card-title>
+              <v-card-text>
+                <!-- <v-img src="avatarMostar"></v-img> -->
+                <v-img src="http://localhost:5000/logo/1/"></v-img>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="green darken-1" text @click="dialog = false">
+                  Fechar</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-row>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -81,12 +107,29 @@ export default {
     avatarFile: null,
     photoSrc: null,
     photoFile: null,
-    loaded: false
+    loaded: false,
+    avatarMostar: null,
+    dialog: false
   }),
   components: {
     "app-takePicture": takePicture
   },
   methods: {
+    mostrar_avatar() {
+      axios
+        .get("http://localhost:5000/api/profissionais/1/", "")
+        .then(response => {
+          console.log("Response de mostrar avatar: ", response);
+          this.avatarMostar = response.data.avatar;
+          console.log(
+            "Em mostar avatar, size de avatar: ",
+            this.avatarMostar.size
+          );
+          this.dialog = true;
+        })
+        .catch(err => console.log("Erro: ", err));
+      this.loaded = false;
+    },
     async sobrescreverProfissional() {
       console.log("Em sobrescrever profissional.");
       if (this.loaded) {

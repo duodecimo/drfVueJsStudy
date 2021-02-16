@@ -44,7 +44,7 @@
             show-size
             filled
             v-model="avatarFile"
-            @change="setPhotoSrc()"
+            @change="setPhotoSrc(avatarFile)"
           ></v-file-input>
         </v-col>
       </v-row>
@@ -80,42 +80,46 @@ export default {
     ],
     avatarFile: null,
     photoSrc: null,
-    photoFile: null
+    photoFile: null,
+    loaded: false
   }),
   components: {
     "app-takePicture": takePicture
   },
   methods: {
-    sobrescreverProfissional() {
-      console.log("Em sobrescrever profussional");
-      var payload = new FormData();
-      payload.append("image_field", this.photoFile);
-      payload.append("cpf", "01234567890");
-      console.log("Avatar nome: ", payload.image_field);
-      var config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
-      axios
-        .patch("http://localhost:5000/api/profissionais/1/", payload, config)
-        .then(response => console.log("Resposta recebida: ", response))
-        .catch(err => console.log("Erro: ", err));
+    async sobrescreverProfissional() {
+      console.log("Em sobrescrever profissional.");
+      if (this.loaded) {
+        var payload = new FormData();
+        await payload.append("avatar", this.photoSrc);
+
+        await payload.append("cpf", "01234567890");
+        console.log("Avatar : ", payload.get("avatar").name);
+        axios
+          .patch("http://localhost:5000/api/profissionais/1/", payload, "")
+          .then(response => console.log("Resposta recebida: ", response))
+          .catch(err => console.log("Erro: ", err));
+        this.loaded = false;
+      } else {
+        console.log("Atençao: o arquivo ainda não foi carregado!");
+      }
     },
-    setPhotoSrc() {
+    setPhotoSrc(avatarFile = null) {
       console.log("---> setting photoSrc.");
-      if (this.avatarFile) {
+      if (avatarFile) {
         const reader = new FileReader();
         reader.addEventListener("load", e => {
           this.photoSrc = e.target.result;
-          this.photoFile = this.avatarFile;
+          this.photoFile = avatarFile;
+          this.avatarFile = avatarFile;
+          this.loaded = true;
         });
         reader.addEventListener("error", e => {
           this.photoSrc = this.getPhotoURL();
           this.photoFile = null;
           console.log("Error: ", e);
         });
-        reader.readAsDataURL(this.avatarFile);
+        reader.readAsDataURL(avatarFile);
       } else {
         this.photoSrc = this.getPhotoURL();
         this.photoFile = null;

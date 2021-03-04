@@ -73,7 +73,6 @@
               </v-card-title>
               <v-card-text>
                 <v-img :src="avatarMostar"></v-img>
-                <!-- <v-img src="http://localhost:5000/logo/1/"></v-img> -->
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -177,7 +176,8 @@ export default {
         reader.addEventListener("load", e => {
           this.photoSrc = e.target.result;
           this.photoFile = photoFile;
-          this.avatarFile = null;
+          this.avatarFile = photoFile;
+          this.loaded = true;
         });
         reader.addEventListener("error", e => {
           this.photoSrc = this.getPhotoURL();
@@ -195,8 +195,8 @@ export default {
     getPhotoURL() {
       // return window.location.origin + "/userPhoto/" + this.pluser.id;
       // return window.location.origin + "/userPhoto/" + "1";
-      // return "https://pratudo-backend.herokuapp.com/logo/";
-      return "http://localhost:5000/logo/1/";
+      return "https://pratudo-backend.herokuapp.com/logo/";
+      // return "http://localhost:5000/logo/1/";
     },
     updateAvatar() {
       let payload = new FormData();
@@ -207,8 +207,8 @@ export default {
     this.photoSrc = this.getPhotoURL();
 
     axios
-      // .get("https://pratudo-backend.herokuapp.com/api/entidades/")
-      .get("http://localhost:5000/api/entidades/")
+      .get("https://pratudo-backend.herokuapp.com/api/entidades/")
+      // .get("http://localhost:5000/api/entidades/")
       .then(response => {
         this.entidades = response.data;
         console.log("Obtidas ", this.entidades.count, " entidades");

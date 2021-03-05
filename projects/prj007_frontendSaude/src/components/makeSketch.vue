@@ -1,13 +1,15 @@
 <template>
   <v-card class="mx-auto">
-    <v-card-title class="justify-center">Tela para Desenho</v-card-title>
+    <v-card-title class="justify-center"
+      >Tela para desenhar formas com linhas retas</v-card-title
+    >
     <v-card-subtitle class="d-flex justify-center">
       Instruções:
       <br />
       Ao clicar com o mouse em um ponto qualquer da tela, o desenho de uma linha
-      começa, e o cursor muda para uma cruzinha. <br />Posicione o mouse aonde
-      deseja o fim da linha, e clique de novo com o mouse: a linha aparece, o
-      cursor volta ao normal.
+      reta começa, e o cursor muda para uma cruzinha. <br />Posicione o mouse
+      aonde deseja o fim da linha, e clique de novo com o mouse: a linha reta
+      aparece, o cursor volta ao normal.
       <br />
       Se deseja continuar para fazer uma forma, clique imediatamente no ponto
       final, e o processo reinicia. <br />

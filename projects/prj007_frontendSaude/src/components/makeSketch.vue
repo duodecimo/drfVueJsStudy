@@ -2,13 +2,25 @@
   <v-card class="mx-auto">
     <v-card-title>Tela para Desenho</v-card-title>
     <v-card-text>
-      <canvas
-        @mousedown="startPainting"
-        width="500"
-        height="300"
-        id="canvas"
-        alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
-      ></canvas>
+      <div class="wrapper">
+        <canvas
+          @mousedown="mouseDown"
+          @mousemove="mouseMove"
+          width="500"
+          height="300"
+          id="canvas"
+          alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
+        ></canvas>
+        <canvas
+          @mousedown="mouseDown"
+          @mousemove="mouseMove"
+          style="position: absolute; left: 20; top: 50; z-index: 1; background-color: transparent;"
+          width="500"
+          height="300"
+          id="canvas_trace"
+          alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
+        ></canvas>
+      </div>
     </v-card-text>
     <v-card-actions>
       <v-btn @click.stop="save()">salvar</v-btn>
@@ -21,21 +33,34 @@
 export default {
   data: () => ({
     canvas: null,
+    canvas_trace: null,
     ctx: null,
-    painting: false
+    ctx_trace: null,
+    painting: false,
+    pos: null,
+    paths: []
   }),
   methods: {
-    startPainting(e) {
+    mouseDown(e) {
       if (!this.painting) {
-        this.ctx.lineWidth = 10;
-        this.ctx.lineCap = "round";
         this.ctx.beginPath();
-        this.ctx.moveTo(e.offsetX, e.offsetY);
+        this.pos = [e.offsetX, e.offsetY];
+        this.ctx.moveTo(this.pos[0], this.pos[1]);
         this.painting = true;
       } else {
         this.ctx.lineTo(e.offsetX, e.offsetY);
         this.ctx.stroke();
+        this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.painting = false;
+      }
+    },
+    mouseMove(e) {
+      if (this.painting) {
+        this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx_trace.beginPath();
+        this.ctx_trace.moveTo(this.pos[0], this.pos[1]);
+        this.ctx_trace.lineTo(e.offsetX, e.offsetY);
+        this.ctx_trace.stroke();
       }
     },
     async save() {
@@ -56,12 +81,29 @@ export default {
   mounted() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
+    this.canvas_trace = document.getElementById("canvas_trace");
+    this.ctx_trace = this.canvas_trace.getContext("2d");
+    this.ctx.lineWidth = 15;
+    this.ctx.lineCap = "round";
+    this.ctx_trace.lineWidth = 3;
+    this.ctx_trace.lineCap = "round";
+    this.ctx_trace.strokeStyle = "rgba(0, 100, 0, 0.25)";
   }
 };
 </script>
 
 <style>
-canvas {
+.wrapper {
+  position: relative;
+  width: 500px;
+  height: 300px;
+}
+.wrapper canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  background-color: transparent;
   border: 1px solid black;
 }
 </style>

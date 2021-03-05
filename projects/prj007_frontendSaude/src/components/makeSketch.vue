@@ -65,7 +65,7 @@ export default {
     },
     async save() {
       var data_url = this.canvas.toDataURL("image/png");
-      console.log("Em makeSketch, save(), data_url length: ", data_url);
+      console.log("Em makeSketch, save(), data_url length: ", data_url.length);
       this.$emit("setSketch", data_url);
       //   await this.canvas.toBlob(blob => (blobBin = blob));
       //   let data = new FormData();
@@ -100,7 +100,7 @@ export default {
 }
 .wrapper canvas {
   position: absolute;
-  left: 0;
+  left: 10;
   top: 0;
   z-index: 0;
   background-color: transparent;

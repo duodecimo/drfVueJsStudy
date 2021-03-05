@@ -28,7 +28,7 @@ export default {
   }),
   methods: {
     saveSketch(data) {
-      console.log("On saveSketch, data: ", data);
+      console.log("On saveSketch, data: ", data.length);
       this.sketch = data;
     }
   }

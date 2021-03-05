@@ -12,6 +12,9 @@
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
+      <v-btn icon to="draw">
+        <v-icon>mdi-draw</v-icon>
+      </v-btn>
       <v-btn icon @click="(logoutDialog = true), set_show_logout(true)">
         <v-icon>mdi-logout</v-icon>
       </v-btn>

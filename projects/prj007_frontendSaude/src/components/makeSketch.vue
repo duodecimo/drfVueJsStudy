@@ -1,28 +1,39 @@
 <template>
   <v-card class="mx-auto">
-    <v-card-title>Tela para Desenho</v-card-title>
-    <v-card-text>
-      <div class="wrapper">
-        <canvas
-          @mousedown="mouseDown"
-          @mousemove="mouseMove"
-          width="500"
-          height="300"
-          id="canvas"
-          alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
-        ></canvas>
-        <canvas
-          @mousedown="mouseDown"
-          @mousemove="mouseMove"
-          style="position: absolute; left: 20; top: 50; z-index: 1; background-color: transparent;"
-          width="500"
-          height="300"
-          id="canvas_trace"
-          alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
-        ></canvas>
-      </div>
+    <v-card-title class="justify-center">Tela para Desenho</v-card-title>
+    <v-card-subtitle class="d-flex justify-center">
+      Instruções:
+      <br />
+      Ao clicar com o mouse em um ponto qualquer da tela, o desenho de uma linha
+      começa, e o cursor muda para uma cruzinha. <br />Posicione o mouse aonde
+      deseja o fim da linha, e clique de novo com o mouse: a linha aparece, o
+      cursor volta ao normal.
+      <br />
+      Se deseja continuar para fazer uma forma, clique imediatamente no ponto
+      final, e o processo reinicia. <br />
+      Faça isso até fechar sua forma, e em seguida, comece de novo em algum
+      outro ponto da tela, se deseja desenhar mais uma forma, até terminar seu
+      desenho.
+    </v-card-subtitle>
+    <v-card-text class="wrapper align-center justify-center">
+      <canvas
+        @mousedown="mouseDown"
+        @mousemove="mouseMove"
+        width="620"
+        height="300"
+        id="canvas"
+        alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
+      ></canvas>
+      <canvas
+        @mousedown="mouseDown"
+        @mousemove="mouseMove"
+        width="620"
+        height="300"
+        id="canvas_trace"
+        alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
+      ></canvas>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions class="justify-center">
       <v-btn @click.stop="save()">salvar</v-btn>
       <v-btn @click.stop="clear()">limpar</v-btn>
     </v-card-actions>
@@ -47,11 +58,13 @@ export default {
         this.pos = [e.offsetX, e.offsetY];
         this.ctx.moveTo(this.pos[0], this.pos[1]);
         this.painting = true;
+        this.canvas_trace.style.cursor = "crosshair";
       } else {
         this.ctx.lineTo(e.offsetX, e.offsetY);
         this.ctx.stroke();
         this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.painting = false;
+        this.canvas_trace.style.cursor = "auto";
       }
     },
     mouseMove(e) {
@@ -95,7 +108,7 @@ export default {
 <style>
 .wrapper {
   position: relative;
-  width: 500px;
+  width: 620px;
   height: 300px;
 }
 .wrapper canvas {

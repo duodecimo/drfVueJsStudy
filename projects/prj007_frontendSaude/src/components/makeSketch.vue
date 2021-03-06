@@ -21,17 +21,23 @@
       <canvas
         @mousedown="mouseDown"
         @mousemove="mouseMove"
+        @keydown="escPressed"
+        v-on:keyup.13="escPressed"
         width="620"
         height="300"
         id="canvas"
+        tabindex="1"
         alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
       ></canvas>
       <canvas
         @mousedown="mouseDown"
         @mousemove="mouseMove"
+        @keydown="escPressed"
+        v-on:keyup.13="escPressed"
         width="620"
         height="300"
         id="canvas_trace"
+        tabindex="1"
         alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
       ></canvas>
     </v-card-text>
@@ -54,6 +60,9 @@ export default {
     paths: []
   }),
   methods: {
+    escPressed(e) {
+      console.log("ESC pressed! ", e.keyCode);
+    },
     mouseDown(e) {
       if (!this.painting) {
         this.ctx.beginPath();

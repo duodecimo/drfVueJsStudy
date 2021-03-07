@@ -17,7 +17,7 @@
       outro ponto da tela, se deseja desenhar mais uma forma, até terminar seu
       desenho.
     </v-card-subtitle>
-    <v-card-text class="wrapper align-center justify-center">
+    <v-card-text class="wrapper">
       <canvas
         @mousedown="mouseDown"
         @mousemove="mouseMove"
@@ -121,10 +121,13 @@ export default {
   position: relative;
   width: 620px;
   height: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .wrapper canvas {
   position: absolute;
-  left: 10;
+  left: 0;
+  right: 0;
   top: 0;
   z-index: 0;
   background-color: transparent;

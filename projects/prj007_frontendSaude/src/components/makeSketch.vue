@@ -1,28 +1,37 @@
 <template>
   <v-card class="mx-auto">
     <v-card-title class="justify-center"
-      >Tela para desenhar formas com linhas retas</v-card-title
+      >Tela para desenhar formas (polígonos) com linhas retas</v-card-title
     >
-    <v-card-subtitle class="d-flex justify-center">
-      Instruções:
-      <br />
-      Ao clicar com o mouse em um ponto qualquer da tela, o desenho de uma linha
-      reta começa, e o cursor muda para uma cruzinha. <br />Posicione o mouse
-      aonde deseja o fim da linha, e clique de novo com o mouse: a linha reta
-      aparece, o cursor volta ao normal.
-      <br />
-      Se deseja continuar para fazer uma forma, clique imediatamente no ponto
-      final, e o processo reinicia. <br />
-      Faça isso até fechar sua forma, e em seguida, comece de novo em algum
-      outro ponto da tela, se deseja desenhar mais uma forma, até terminar seu
-      desenho.
+    <v-card-subtitle class="justify-center">
+      <h4>Instruções:</h4>
+      Existem dois estados: <b>apontando</b>
+      <v-icon>
+        mdi-cursor-pointer
+      </v-icon>
+      e <b>desenhando</b>
+      <v-icon>
+        mdi-hospital
+      </v-icon>
+      .<br />
+      Quando <b>apontando</b> <v-icon> mdi-cursor-pointer </v-icon>, clique em
+      alguma posição na tela para iniciar o desenho de uma forma (polígono). O
+      estado muda para <b>desenhando</b> <v-icon> mdi-hospital </v-icon>, e ao
+      mover o mouse, uma linha guia aparece.<br />
+      Quando <b>desenhando</b> <v-icon> mdi-hospital </v-icon>, cada vez que
+      clicar com o mouse, um novo vértice do polígono é criado, e uma linha
+      (lado) é desenhada unindo o vértice anterior a este.<br />
+      Siga clicando e criando vértices, até fechar o seu polígono. Então,
+      pressione a tecla <b>ESC</b> para mudar de volta para <b>apontando</b>
+      <v-icon> mdi-cursor-pointer </v-icon>.<br />
+      Comece de novo em algum outro ponto da tela, se deseja desenhar mais uma
+      forma, até terminar seu desenho.
     </v-card-subtitle>
     <v-card-text class="wrapper">
       <canvas
         @mousedown="mouseDown"
         @mousemove="mouseMove"
         @keydown="escPressed"
-        v-on:keyup.13="escPressed"
         width="620"
         height="300"
         id="canvas"
@@ -33,7 +42,6 @@
         @mousedown="mouseDown"
         @mousemove="mouseMove"
         @keydown="escPressed"
-        v-on:keyup.13="escPressed"
         width="620"
         height="300"
         id="canvas_trace"
@@ -62,6 +70,11 @@ export default {
   methods: {
     escPressed(e) {
       console.log("ESC pressed! ", e.keyCode);
+      if (e.keyCode == 27) {
+        this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.painting = false;
+        this.canvas_trace.style.cursor = "pointer";
+      }
     },
     mouseDown(e) {
       if (!this.painting) {
@@ -74,8 +87,10 @@ export default {
         this.ctx.lineTo(e.offsetX, e.offsetY);
         this.ctx.stroke();
         this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.painting = false;
-        this.canvas_trace.style.cursor = "auto";
+        this.pos = [e.offsetX, e.offsetY];
+        this.ctx.moveTo(this.pos[0], this.pos[1]);
+        // this.painting = false;
+        // this.canvas_trace.style.cursor = "auto";
       }
     },
     mouseMove(e) {
@@ -112,6 +127,7 @@ export default {
     this.ctx_trace.lineWidth = 3;
     this.ctx_trace.lineCap = "round";
     this.ctx_trace.strokeStyle = "rgba(0, 100, 0, 0.25)";
+    this.canvas_trace.style.cursor = "pointer";
   }
 };
 </script>

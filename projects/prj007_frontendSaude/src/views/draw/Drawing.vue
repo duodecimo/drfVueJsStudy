@@ -13,7 +13,32 @@
     </v-row>
     <v-row>
       <v-col>
-        <makeSketch @setSketch="saveSketch($event)" />
+        <makeSketch
+          :livre="false"
+          canvas_id="c1"
+          canvas_trace_id="ct1"
+          @setSketch="saveSketch($event)"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <makeSketch
+          :livre="true"
+          canvas_id="c2"
+          canvas_trace_id="ct2"
+          @setSketch="saveSketch($event)"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <makeSketch
+          :livre="false"
+          canvas_id="c3"
+          canvas_trace_id="ct3"
+          @setSketch="saveSketch($event)"
+        />
       </v-col>
     </v-row>
   </div>

@@ -34,17 +34,18 @@
         @keydown="escPressed"
         width="620"
         height="300"
-        id="canvas"
+        :id="canvas_id"
         tabindex="1"
         alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
       ></canvas>
       <canvas
         @mousedown="mouseDown"
         @mousemove="mouseMove"
+        @mouseup="mouseUp"
         @keydown="escPressed"
         width="620"
         height="300"
-        id="canvas_trace"
+        :id="canvas_trace_id"
         tabindex="1"
         alt="Parece que seu navegador não suporta canvas para desenhar. Experimente com Firefox ou Google Chrome."
       ></canvas>
@@ -58,6 +59,20 @@
 
 <script>
 export default {
+  props: {
+    livre: {
+      type: Boolean,
+      required: true
+    },
+    canvas_id: {
+      type: String,
+      required: true
+    },
+    canvas_trace_id: {
+      type: String,
+      required: true
+    }
+  },
   data: () => ({
     canvas: null,
     canvas_trace: null,
@@ -69,37 +84,61 @@ export default {
   }),
   methods: {
     escPressed(e) {
-      console.log("ESC pressed! ", e.keyCode);
-      if (e.keyCode == 27) {
-        this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.painting = false;
-        this.canvas_trace.style.cursor = "pointer";
+      if (!this.livre) {
+        console.log("ESC pressed! ", e.keyCode);
+        if (e.keyCode == 27) {
+          this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.painting = false;
+          this.canvas_trace.style.cursor = "pointer";
+        }
       }
     },
     mouseDown(e) {
-      if (!this.painting) {
-        this.ctx.beginPath();
-        this.pos = [e.offsetX, e.offsetY];
-        this.ctx.moveTo(this.pos[0], this.pos[1]);
+      if (this.livre) {
         this.painting = true;
-        this.canvas_trace.style.cursor = "crosshair";
-      } else {
-        this.ctx.lineTo(e.offsetX, e.offsetY);
-        this.ctx.stroke();
-        this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.pos = [e.offsetX, e.offsetY];
         this.ctx.moveTo(this.pos[0], this.pos[1]);
-        // this.painting = false;
-        // this.canvas_trace.style.cursor = "auto";
+      } else {
+        if (!this.painting) {
+          this.ctx.beginPath();
+          this.pos = [e.offsetX, e.offsetY];
+          this.ctx.moveTo(this.pos[0], this.pos[1]);
+          this.painting = true;
+          this.canvas_trace.style.cursor = "crosshair";
+        } else {
+          this.ctx.lineTo(e.offsetX, e.offsetY);
+          this.ctx.stroke();
+          this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.pos = [e.offsetX, e.offsetY];
+          this.ctx.moveTo(this.pos[0], this.pos[1]);
+          // this.painting = false;
+          // this.canvas_trace.style.cursor = "auto";
+        }
       }
     },
     mouseMove(e) {
-      if (this.painting) {
-        this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx_trace.beginPath();
-        this.ctx_trace.moveTo(this.pos[0], this.pos[1]);
-        this.ctx_trace.lineTo(e.offsetX, e.offsetY);
-        this.ctx_trace.stroke();
+      if (this.livre) {
+        if (this.painting) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(this.pos[0], this.pos[1]);
+          this.ctx.lineTo(e.offsetX, e.offsetY);
+          this.ctx.stroke();
+          this.pos = [e.offsetX, e.offsetY];
+        }
+      } else {
+        if (this.painting) {
+          this.ctx_trace.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.ctx_trace.beginPath();
+          this.ctx_trace.moveTo(this.pos[0], this.pos[1]);
+          this.ctx_trace.lineTo(e.offsetX, e.offsetY);
+          this.ctx_trace.stroke();
+        }
+      }
+    },
+    mouseUp(e) {
+      if (this.livre) {
+        this.pos = [e.offsetX, e.offsetY];
+        this.painting = false;
       }
     },
     async save() {
@@ -115,14 +154,17 @@ export default {
     },
     clear() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      if (this.livre) {
+        this.painting = false;
+      }
     }
   },
   mounted() {
-    this.canvas = document.getElementById("canvas");
+    this.canvas = document.getElementById(this.canvas_id);
     this.ctx = this.canvas.getContext("2d");
-    this.canvas_trace = document.getElementById("canvas_trace");
+    this.canvas_trace = document.getElementById(this.canvas_trace_id);
     this.ctx_trace = this.canvas_trace.getContext("2d");
-    this.ctx.lineWidth = 15;
+    this.ctx.lineWidth = 10;
     this.ctx.lineCap = "round";
     this.ctx_trace.lineWidth = 3;
     this.ctx_trace.lineCap = "round";

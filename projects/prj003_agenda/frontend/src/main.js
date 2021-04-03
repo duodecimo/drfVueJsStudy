@@ -5,6 +5,7 @@ import store from "./store";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import VueResource from "vue-resource";
+import "@/plugins/vuetify-mask.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
